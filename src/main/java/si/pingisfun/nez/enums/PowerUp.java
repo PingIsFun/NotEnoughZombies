@@ -56,7 +56,7 @@ public enum PowerUp {
         return name;
     }
 
-    private int getPatternNumber(int round) {
+    public int getPatternNumber(int round) {
         int[][] patternData = this.getPattern();
         for (int i = 0; i < patternData.length; i += 2) {
             int[] pattern = patternData[i];
