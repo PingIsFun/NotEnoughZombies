@@ -1,4 +1,4 @@
-package si.pingisfun.nez.events.title;
+package si.pingisfun.nez.events.game;
 
 import net.minecraftforge.fml.common.eventhandler.Event;
 

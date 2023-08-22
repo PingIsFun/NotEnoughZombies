@@ -3,7 +3,9 @@ package si.pingisfun.nez.handlers.base;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.EventBus;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import si.pingisfun.nez.NotEnoughZombies;
+import si.pingisfun.nez.events.game.GameOverEvent;
+import si.pingisfun.nez.events.game.GameStartEvent;
+import si.pingisfun.nez.events.game.NewRoundEvent;
 import si.pingisfun.nez.events.title.*;
 import si.pingisfun.nez.utils.JavaUtils;
 
@@ -11,7 +13,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class TitleEventHandler {
     @SubscribeEvent
