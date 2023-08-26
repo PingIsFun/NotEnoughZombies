@@ -34,7 +34,9 @@ public class ActionBarChatEventHandler {
             {"hitTarget", " ⊕ ([a-zA-Z0-9_]{3,16}) hit the target!"},
             {"receiveGold", "\\+(\\d+) Gold(?: \\((.+)\\)|)"},
             {"startRepairing", "Repairing windows\\. Keep holding SNEAK to continue repairing\\."},
-            {"stopRepairing", "Stopped repairing\\. There are enemies nearby!|Stopped repairing\\. Stay within range of the window to repair it!"},
+            {"stopRepairing", "Stopped repairing\\. There are enemies nearby!"},
+            {"stopRepairing", "Stopped repairing\\. Stay within range of the window to repair it!"},
+            {"enemyNearby", "You can't repair windows while enemies are nearby!"},
             {"finishRepairing", "You have fully repaired this window!"}
     };
     int oldActionBarHash = 0;
@@ -145,6 +147,11 @@ public class ActionBarChatEventHandler {
                     bus.post(new WindowRepairEvent(event, WindowRepair.FINISH));
                     break;
                 }
+                case "enemyNearby": {
+                    bus.post(new WindowRepairEvent(event, WindowRepair.ENEMY_NEARBY));
+                    break;
+                }
+
             }
         }
 
