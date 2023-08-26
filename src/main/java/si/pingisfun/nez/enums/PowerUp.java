@@ -1,41 +1,40 @@
 package si.pingisfun.nez.enums;
 
 
-import java.util.Arrays;
-import java.util.Objects;
+import java.util.*;
 
 public enum PowerUp {
-    INSTA_KILL("Insta Kill", new int[][]{
-            {2, 5, 8, 11, 14, 17, 20, 23}, {},
-            {3, 6, 9, 12, 15, 18, 21}, {}
-    }),
-    MAX_AMMO("Max Ammo", new int[][]{
-            {2, 5, 8, 12, 16}, {1, 6},
-            {3, 6, 9, 13, 17}, {2, 7}
-    }),
-    SHOPPING_SPREE("Shopping Spree", new int[][]{
-            {5, 15, 45}, {5},
-            {6}, {6},
-            {7}, {7}
-    }),
+    INSTA_KILL("Insta Kill", Arrays.asList(
+            new TreeSet<>(Arrays.asList(2, 5, 8, 11, 14, 17, 20, 23)), Collections.emptySortedSet(),
+            new TreeSet<>(Arrays.asList(3, 6, 9, 12, 15, 18, 21)), Collections.emptySortedSet()
+    )),
+    MAX_AMMO("Max Ammo", Arrays.asList(
+            new TreeSet<>(Arrays.asList(2, 5, 8, 12, 16)), new TreeSet<>(Arrays.asList(1, 6)),
+            new TreeSet<>(Arrays.asList(3, 6, 9, 13, 17)), new TreeSet<>(Arrays.asList(2, 7))
+    )),
+    SHOPPING_SPREE("Shopping Spree", Arrays.asList(
+            new TreeSet<>(Arrays.asList(5, 15, 45)), new TreeSet<>(Collections.singleton(5)),
+            new TreeSet<>(Collections.singleton(6)), new TreeSet<>(Collections.singleton(6)),
+            new TreeSet<>(Collections.singleton(7)), new TreeSet<>(Collections.singleton(7))
+    )),
     DOUBLE_GOLD("Double Gold"),
     CARPENTER("Carpenter"),
     BONUS_GOLD("Bonus Gold");
 
     private final String name;
 
-    private int[][] pattern = null;
+    private Optional<List<SortedSet<Integer>>> pattern = Optional.empty();
 
-    PowerUp(String name, int[][] pattern) {
+    PowerUp(String name, List<SortedSet<Integer>> pattern) {
         this.name = name;
-        this.pattern = pattern;
+        this.pattern = Optional.of(pattern);
     }
 
     PowerUp(String name) {
         this.name = name;
     }
 
-    public int[][] getPattern() {
+    public Optional<List<SortedSet<Integer>>> getPattern() {
         return pattern;
     }
 
@@ -56,54 +55,66 @@ public enum PowerUp {
         return name;
     }
 
-    public int getPatternNumber(int round) {
-        int[][] patternData = this.getPattern();
-        for (int i = 0; i < patternData.length; i += 2) {
-            int[] pattern = patternData[i];
-            if (Arrays.binarySearch(pattern, round) >= 0) {
-                return i;
+    public Optional<Integer> getPatternNumber(int round) {
+        Optional<List<SortedSet<Integer>>> patternDataOption = this.getPattern();
+        if (!patternDataOption.isPresent()) {
+            return Optional.empty();
+        }
+
+        List<SortedSet<Integer>> patternData = patternDataOption.get();
+        for (int i = 0; i < patternData.size(); i += 2) {
+            SortedSet<Integer> powerUpPattern = patternData.get(i);
+            if (powerUpPattern.contains(round)) {
+                return Optional.of(i);
             }
         }
-        return -1;
+        return Optional.empty();
     }
 
-    public int getNextPowerUpRound(int currentRound, int patternNum) {
-        int[][] patternData = this.getPattern();
-        int[] pattern = patternData[patternNum];
-        int[] digits = patternData[patternNum + 1];
-        int biggestPatternNum = pattern[pattern.length - 1];
+    public Optional<Integer> getNextPowerUpRound(int currentRound, int patternNum) {
+        if (patternNum % 2 == 1) {
+            return Optional.empty();
+        }
+
+        Optional<List<SortedSet<Integer>>> patternDataOption = this.getPattern();
+        if (!patternDataOption.isPresent()) {
+            return Optional.empty();
+        }
+
+        List<SortedSet<Integer>> patternData = patternDataOption.get();
+
+        if (patternData.size() < patternNum + 1) {
+            return Optional.empty();
+        }
+        SortedSet<Integer> powerupPattern = patternData.get(patternNum);
+        SortedSet<Integer> digits = patternData.get(patternNum + 1);
+        int biggestPatternNum = Collections.max(powerupPattern);
         if (biggestPatternNum >= currentRound) {
-            return findNumberAfter(pattern, currentRound);
+            return findNumberAfter(powerupPattern, currentRound);
+        }
+        if (digits.isEmpty()) {
+            return Optional.empty();
         }
         int tensDown = currentRound - currentRound % 10;
         int res = -1;
-        int c = 0;
-        while (res < currentRound) {
+        for (int i = 0; i < 10; i++) {
             for (int digit : digits) {
                 res = tensDown + digit;
                 if (res >= currentRound) {
-                    return res;
+                    return Optional.of(res);
                 }
             }
             tensDown += 10;
-            if (c > 100) {
-                String patternDataString = Arrays.toString(Arrays.stream(patternData).map(Arrays::toString).toArray());
-                throw new StackOverflowError("getNextPowerUpRound() was recursing to infinity."
-                        + " Data: currentRound = " + currentRound
-                        + " patternData = " + patternDataString
-                        + " patternNum = " + patternNum);
-            }
-            c++;
         }
-        return res;
+        return Optional.empty();
     }
 
-    private int findNumberAfter(int[] numbers, int target) {
+    private Optional<Integer> findNumberAfter(SortedSet<Integer> numbers, int target) {
         for (int number : numbers) {
             if (number >= target) {
-                return number;
+                return Optional.of(number);
             }
         }
-        return -1; // If no number is found
+        return Optional.empty(); // If no number is found
     }
 }
