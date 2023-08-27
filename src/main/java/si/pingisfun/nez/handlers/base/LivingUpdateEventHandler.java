@@ -10,6 +10,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.apache.commons.lang3.text.WordUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import si.pingisfun.nez.NotEnoughZombies;
 import si.pingisfun.nez.config.ModConfig;
 import si.pingisfun.nez.enums.PowerUp;
 import si.pingisfun.nez.events.entity.PowerUpDespawnEvent;
@@ -85,11 +86,16 @@ public class LivingUpdateEventHandler {
         EventBus bus = MinecraftForge.EVENT_BUS;
         if (type.equals("powerUpEntity")) {
             String powerUpRaw = WordUtils.capitalize(nameMatcher.group(1).toLowerCase());
-            PowerUp powerUp = PowerUp.getPowerUpByName(powerUpRaw);
+            Optional<PowerUp> powerUpOption = PowerUp.getPowerUpByName(powerUpRaw);
+            if (!powerUpOption.isPresent()) {
+                NotEnoughZombies.LOGGER.warn("Power up not found for powerUp={}", nameMatcher.group(1));
+                return;
+            }
+
             if (name.startsWith("§f")) {
-                bus.post(new PowerUpDespawnEvent(entity, powerUp));
+                bus.post(new PowerUpDespawnEvent(entity, powerUpOption.get()));
             } else {
-                bus.post(new PowerUpSpawnEvent(entity, powerUp));
+                bus.post(new PowerUpSpawnEvent(entity, powerUpOption.get()));
             }
         }
     }

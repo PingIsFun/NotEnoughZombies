@@ -18,6 +18,7 @@ import si.pingisfun.nez.utils.ZombiesUtils;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -88,14 +89,21 @@ public class ActionBarChatEventHandler {
                 }
                 case "powerUp": {
                     String player = chatMatcher.group(1);
-                    PowerUp powerUp = PowerUp.getPowerUpByName(chatMatcher.group(2));
+                    Optional<PowerUp> powerUpOption = PowerUp.getPowerUpByName(chatMatcher.group(2));
                     int duration = -1;
                     String durationRaw = chatMatcher.group(3);
-                    if (Objects.nonNull(durationRaw)) {
-                        duration = Integer.parseInt(durationRaw);
+
+                    if (!powerUpOption.isPresent()) {
+                        NotEnoughZombies.LOGGER.warn("Power up not found for player={}, powerUp={}, duration={}", player, chatMatcher.group(2), duration);
+                        return;
                     }
 
-                    bus.post(new PowerUpEvent(player,powerUp, duration));
+                    if (Objects.isNull(durationRaw)) {
+                        return;
+                    }
+                    duration = Integer.parseInt(durationRaw);
+
+                    bus.post(new PowerUpEvent(player, powerUpOption.get(), duration));
                     break;
                 }
                 case "foundInLChest": {
