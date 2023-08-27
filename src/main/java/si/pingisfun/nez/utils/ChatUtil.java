@@ -15,7 +15,7 @@ public class ChatUtil {
         UChat.chat(data);
     }
     public static void printError(String data) {
-        UChat.chat(ChatColor.RED + "[" + NotEnoughZombies.NAME + "] " + data);
+        UChat.chat(PREFIX + ChatColor.RED + data);
     }
 
     public static void printMessage(String data) {
