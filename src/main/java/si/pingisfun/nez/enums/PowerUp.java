@@ -42,13 +42,13 @@ public enum PowerUp {
         return Objects.nonNull(this.pattern);
     }
 
-    public static PowerUp getPowerUpByName(String name) {
+    public static Optional<PowerUp> getPowerUpByName(String name) {
         for (PowerUp powerUp : PowerUp.values()) {
             if (powerUp.name.equalsIgnoreCase(name)) {
-                return powerUp;
+                return Optional.of(powerUp);
             }
         }
-        return null;
+        return Optional.empty();
     }
 
     public String getName() {
