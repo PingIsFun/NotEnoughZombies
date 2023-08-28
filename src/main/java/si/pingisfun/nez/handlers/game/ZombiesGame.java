@@ -41,7 +41,7 @@ public class ZombiesGame {
         int ss = getNextPowerUpRound(PowerUp.SHOPPING_SPREE).orElse(-1);
         int ik = getNextPowerUpRound(PowerUp.INSTA_KILL).orElse(-1);
         int mx = getNextPowerUpRound(PowerUp.MAX_AMMO).orElse(-1);
-        ChatUtil.printMessage("New Round: " + this.currentRound + ". SS: " + ss + " IK: " + ik + " MX: " + mx);
+        ChatUtil.message("New Round: " + this.currentRound + ". SS: " + ss + " IK: " + ik + " MX: " + mx);
     }
 
     @SubscribeEvent
@@ -132,7 +132,7 @@ public class ZombiesGame {
             return;
         }
         powerUpPatternMap.remove(powerUp);
-        ChatUtil.printMessage(powerUp.getName() + " was reset.");
+        ChatUtil.message(powerUp.getName() + " was reset.");
     }
 
     public void setPowerUpPattern(PowerUp powerUp, Integer pattern) {
@@ -152,6 +152,6 @@ public class ZombiesGame {
         }
 
         powerUpPatternMap.put(powerUp, pattern);
-        ChatUtil.printMessage(powerUp.getName() + " pattern set to " + pattern);
+        ChatUtil.message(powerUp.getName() + " pattern set to " + pattern);
     }
 }
