@@ -2,6 +2,7 @@ package si.pingisfun.nez.handlers.base;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityArmorStand;
+import net.minecraft.entity.monster.EntityGiantZombie;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent;
@@ -48,7 +49,6 @@ public class LivingUpdateEventHandler {
         }
 
         String name = entity.getName();
-        UUID uuid = entity.getUniqueID();
 
         if (IGNORE_ENTITY_SET.contains(name)) {
             return;
@@ -57,13 +57,9 @@ public class LivingUpdateEventHandler {
         if (REVIVE_SECONDS_PATTERN.matcher(name).matches()) {
             return;
         }
-        String oldName = entityNameCache.get(uuid);
-        if (name.equals(oldName)) {
-            return;
-        }
-        entityNameCache.put(uuid, name);
+
         if (entity instanceof EntityArmorStand) {
-            handleArmorStandEntity(entity, name);
+            nameChange(entity);
         } else {
             if (ModConfig.test != 3) {
                 return;
@@ -71,6 +67,19 @@ public class LivingUpdateEventHandler {
             RENDER_LOGGER.info(name);
         }
 
+    }
+
+    private void nameChange(EntityLivingBase entity) {
+        String name = entity.getName();
+        UUID uuid = entity.getUniqueID();
+        String oldName = entityNameCache.get(uuid);
+        if (name.equals(oldName)) {
+            return;
+        }
+        entityNameCache.put(uuid, name);
+        if (entity instanceof EntityArmorStand) {
+            handleArmorStandEntity(entity, name);
+        }
 
     }
 
