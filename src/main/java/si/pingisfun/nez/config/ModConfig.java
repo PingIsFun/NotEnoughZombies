@@ -25,20 +25,15 @@ public class ModConfig extends Config {
     public static int powerUpDeSpawnAlert = 1;
 
     @Switch(
-            name = "Hide Gold Received Messages",
-            size = OptionSize.SINGLE // Optional
+            name = "Hide Gold Received Messages"
     )
     public static boolean hideGoldMessages = false; // The default value for the boolean Switch.
+
     @Switch(
-            name = "Hide Window Repair Messages",
-            size = OptionSize.SINGLE // Optional
+            name = "Hide Window Repair Messages"
     )
     public static boolean hideWindowRepairMessages = false; // The default value for the boolean Switch.
-    @Switch(
-            name = "ENTITY DEBUG",
-            size = OptionSize.SINGLE // Optional
-    )
-    public static boolean entityDebug = false; // The default value for the boolean Switch.
+    
     @Slider(
             name = "TEST",
             step = 1,
@@ -52,3 +47,4 @@ public class ModConfig extends Config {
         initialize();
     }
 }
+

@@ -40,7 +40,7 @@ public class LivingUpdateEventHandler {
 
     @SubscribeEvent
     public void onLivingUpdateEvent(LivingEvent.LivingUpdateEvent livingUpdateEvent) {
-        if (!ModConfig.entityDebug || !ZombiesUtils.isZombiesGame()) {
+        if (!ZombiesUtils.isZombiesGame()) {
             return;
         }
         EntityLivingBase entity = livingUpdateEvent.entityLiving;
