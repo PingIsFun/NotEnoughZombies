@@ -3,7 +3,7 @@ package si.pingisfun.nez;
 import net.minecraftforge.common.MinecraftForge;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import si.pingisfun.nez.command.ExampleCommand;
+import si.pingisfun.nez.command.NEZCommand;
 import si.pingisfun.nez.config.ModConfig;
 import cc.polyfrost.oneconfig.events.event.InitializationEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -13,7 +13,7 @@ import si.pingisfun.nez.handlers.alert.PowerUpAlert;
 import si.pingisfun.nez.handlers.base.*;
 import si.pingisfun.nez.handlers.chat.HideGoldMessages;
 import si.pingisfun.nez.handlers.chat.HideWindowRepairMessages;
-import si.pingisfun.nez.utils.GameInfo;
+import si.pingisfun.nez.handlers.game.ZombiesGame;
 
 /**
  * The entrypoint of the Example Mod that initializes it.
@@ -31,13 +31,14 @@ public class NotEnoughZombies {
     public static NotEnoughZombies INSTANCE; // Adds the instance of the mod, so we can access other variables.
     public static ModConfig config;
     public static final Logger LOGGER = LogManager.getLogger(MODID);
-    public static GameInfo gameInfo = new GameInfo();
+    public static ZombiesGame game;
 
     // Register the config and commands.
     @Mod.EventHandler
     public void onInit(FMLInitializationEvent event) {
         config = new ModConfig();
-        CommandManager.INSTANCE.registerCommand(new ExampleCommand());
+        game = new ZombiesGame();
+        CommandManager.INSTANCE.registerCommand(new NEZCommand());
 
         // Base Handlers
         MinecraftForge.EVENT_BUS.register(new TitleEventHandler());
@@ -45,8 +46,9 @@ public class NotEnoughZombies {
 //        MinecraftForge.EVENT_BUS.register(new PlaySoundEventHandler());
         MinecraftForge.EVENT_BUS.register(new LivingUpdateEventHandler());
 
-        // GameInfo
-        MinecraftForge.EVENT_BUS.register(gameInfo);
+
+        // New Game
+        MinecraftForge.EVENT_BUS.register(game);
         // Alert
         MinecraftForge.EVENT_BUS.register(new PowerUpAlert());
         // Chat
