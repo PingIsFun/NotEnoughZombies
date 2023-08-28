@@ -32,33 +32,6 @@ public class ZombiesGame {
         isInGame = true;
     }
 
-    public Optional<Integer> getNextPowerUpRound(PowerUp powerUp) {
-        Optional<Integer> patternNum = getPatternNum(powerUp);
-        if (!patternNum.isPresent()) {
-            return Optional.empty();
-        }
-
-        return powerUp.getNextPowerUpRound(currentRound, patternNum.get());
-    }
-
-    private Optional<Integer> getPatternNum(PowerUp powerUp) {
-        if (!powerUp.hasPattern()) {
-            return Optional.empty();
-        }
-        Integer powerUpPattern = powerUpPatternMap.get(powerUp);
-
-        if (Objects.isNull(powerUpPattern)) {
-            return Optional.empty();
-        }
-
-        return Optional.of(powerUpPattern);
-
-    }
-
-    private boolean powerUpPatternExists(PowerUp powerUp) {
-        return Objects.nonNull(powerUpPatternMap.get(powerUp));
-    }
-
     @SubscribeEvent
     public void onNewRound(NewRoundEvent newRoundEvent) {
         if (Objects.isNull(map)) {
@@ -74,7 +47,6 @@ public class ZombiesGame {
     @SubscribeEvent
     public void onPowerUpSpawn(PowerUpSpawnEvent powerUpSpawnEvent) {
         PowerUp powerUp = powerUpSpawnEvent.getPowerUp();
-        NotEnoughZombies.LOGGER.info("POWERUP: " + powerUp);
 
         if (!powerUp.hasPattern()) {
             return;
@@ -99,7 +71,7 @@ public class ZombiesGame {
         PowerUp powerUp = powerUpPickupEvent.getPowerUp();
         NotEnoughZombies.LOGGER.info("PowerUp Pickup event triggered for {}", powerUpPickupEvent.getPowerUp().getName());
 
-        if (!powerUp.hasPattern()) {
+        if (!PowerUp.PATTERN_POWERUPS.contains(powerUp)) {
             return;
         }
 
@@ -126,6 +98,33 @@ public class ZombiesGame {
         map = null;
         currentRound = null;
         powerUpPatternMap = new HashMap<>(3);
+    }
+
+    public Optional<Integer> getNextPowerUpRound(PowerUp powerUp) {
+        Optional<Integer> patternNum = getPatternNum(powerUp);
+        if (!patternNum.isPresent()) {
+            return Optional.empty();
+        }
+
+        return powerUp.getNextPowerUpRound(currentRound, patternNum.get());
+    }
+
+    private Optional<Integer> getPatternNum(PowerUp powerUp) {
+        if (!powerUp.hasPattern()) {
+            return Optional.empty();
+        }
+        Integer powerUpPattern = powerUpPatternMap.get(powerUp);
+
+        if (Objects.isNull(powerUpPattern)) {
+            return Optional.empty();
+        }
+
+        return Optional.of(powerUpPattern);
+
+    }
+
+    private boolean powerUpPatternExists(PowerUp powerUp) {
+        return Objects.nonNull(powerUpPatternMap.get(powerUp));
     }
 
     public void resetPowerUpPattern(PowerUp powerUp) {
