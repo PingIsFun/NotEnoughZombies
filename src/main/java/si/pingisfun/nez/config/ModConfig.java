@@ -1,12 +1,8 @@
 package si.pingisfun.nez.config;
 
+import cc.polyfrost.oneconfig.config.annotations.*;
 import si.pingisfun.nez.NotEnoughZombies;
-import si.pingisfun.nez.hud.TestHud;
 import cc.polyfrost.oneconfig.config.Config;
-import cc.polyfrost.oneconfig.config.annotations.Dropdown;
-import cc.polyfrost.oneconfig.config.annotations.HUD;
-import cc.polyfrost.oneconfig.config.annotations.Slider;
-import cc.polyfrost.oneconfig.config.annotations.Switch;
 import cc.polyfrost.oneconfig.config.data.Mod;
 import cc.polyfrost.oneconfig.config.data.ModType;
 import cc.polyfrost.oneconfig.config.data.OptionSize;
@@ -16,6 +12,18 @@ import cc.polyfrost.oneconfig.config.data.OptionSize;
  * See <a href="https://docs.polyfrost.cc/oneconfig/config/adding-options">this link</a> for more config Options
  */
 public class ModConfig extends Config {
+    @Dropdown(
+            name = "Alert on power up spawn",
+            options = {"Off", "Self", "Party", "Chat"}
+    )
+    public static int powerUpSpawnAlert = 1;
+
+    @Dropdown(
+            name = "Alert on power up despawn",
+            options = {"Off", "Self", "Party", "Chat"}
+    )
+    public static int powerUpDeSpawnAlert = 1;
+
     @Switch(
             name = "Hide Gold Received Messages",
             size = OptionSize.SINGLE // Optional
@@ -44,4 +52,3 @@ public class ModConfig extends Config {
         initialize();
     }
 }
-

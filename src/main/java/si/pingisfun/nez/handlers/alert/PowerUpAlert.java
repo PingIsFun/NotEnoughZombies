@@ -1,6 +1,8 @@
 package si.pingisfun.nez.handlers.alert;
 
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import si.pingisfun.nez.config.ModConfig;
+import si.pingisfun.nez.enums.config.ChatOutput;
 import si.pingisfun.nez.events.entity.PowerUpDespawnEvent;
 import si.pingisfun.nez.events.entity.PowerUpSpawnEvent;
 import si.pingisfun.nez.utils.ChatUtil;
@@ -20,7 +22,7 @@ public class PowerUpAlert {
         }
         despawnUUIDs.add(uuid);
         String powerUpName = powerUpDespawnEvent.getPowerUp().getName();
-        ChatUtil.printMessage(powerUpName + " is going to despawn soon");
+        ChatUtil.message(powerUpName + " is going to despawn soon", ChatOutput.getOutputUpByNumber(ModConfig.powerUpDeSpawnAlert));
     }
 
     @SubscribeEvent
@@ -31,6 +33,6 @@ public class PowerUpAlert {
         }
         spawnUUIDs.add(uuid);
         String powerUpName = powerUpSpawnEvent.getPowerUp().getName();
-        ChatUtil.printMessage(powerUpName + " spawned");
+        ChatUtil.message(powerUpName + " spawned", ChatOutput.getOutputUpByNumber(ModConfig.powerUpSpawnAlert));
     }
 }
