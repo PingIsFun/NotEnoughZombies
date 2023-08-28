@@ -90,18 +90,19 @@ public class ActionBarChatEventHandler {
                 case "powerUp": {
                     String player = chatMatcher.group(1);
                     Optional<PowerUp> powerUpOption = PowerUp.getPowerUpByName(chatMatcher.group(2));
-                    int duration = -1;
+                    int duration;
                     String durationRaw = chatMatcher.group(3);
-
                     if (!powerUpOption.isPresent()) {
-                        NotEnoughZombies.LOGGER.warn("Power up not found for player={}, powerUp={}, duration={}", player, chatMatcher.group(2), duration);
+                        NotEnoughZombies.LOGGER.warn("Power up not found for player={}, powerUp={}, durationRaw={}", player, chatMatcher.group(2), durationRaw);
                         return;
                     }
 
                     if (Objects.isNull(durationRaw)) {
-                        return;
+                        duration = -1;
+
+                    } else {
+                        duration = Integer.parseInt(durationRaw);
                     }
-                    duration = Integer.parseInt(durationRaw);
 
                     bus.post(new PowerUpPickupEvent(player, powerUpOption.get(), duration));
                     break;
