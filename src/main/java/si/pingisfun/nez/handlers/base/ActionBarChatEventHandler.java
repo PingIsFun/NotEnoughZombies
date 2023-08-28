@@ -20,7 +20,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class ActionBarChatEventHandler {
     private static final String[][] CHAT_REGEX_MATRIX = {
@@ -104,7 +103,7 @@ public class ActionBarChatEventHandler {
                     }
                     duration = Integer.parseInt(durationRaw);
 
-                    bus.post(new PowerUpEvent(player, powerUpOption.get(), duration));
+                    bus.post(new PowerUpPickupEvent(player, powerUpOption.get(), duration));
                     break;
                 }
                 case "foundInLChest": {

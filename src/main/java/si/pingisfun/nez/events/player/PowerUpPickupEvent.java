@@ -3,12 +3,12 @@ package si.pingisfun.nez.events.player;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import si.pingisfun.nez.enums.PowerUp;
 
-public class PowerUpEvent extends Event {
+public class PowerUpPickupEvent extends Event {
     private final String pickupPlayer;
     private final PowerUp powerUp;
     private final int duration;
 
-    public PowerUpEvent(String pickupPlayer, PowerUp powerUp, int timeLeft) {
+    public PowerUpPickupEvent(String pickupPlayer, PowerUp powerUp, int timeLeft) {
         this.pickupPlayer = pickupPlayer;
         this.powerUp = powerUp;
         this.duration = timeLeft;
