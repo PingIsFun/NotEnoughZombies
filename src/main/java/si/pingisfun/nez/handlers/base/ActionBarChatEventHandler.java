@@ -37,6 +37,7 @@ public class ActionBarChatEventHandler {
             {"startRepairing", "Repairing windows\\. Keep holding SNEAK to continue repairing\\."},
             {"stopRepairing", "Stopped repairing\\. There are enemies nearby!"},
             {"stopRepairing", "Stopped repairing\\. Stay within range of the window to repair it!"},
+            {"stopRepairing", "Stopped repairing\\. Hold SNEAK to continue repairing!"},
             {"enemyNearby", "You can't repair windows while enemies are nearby!"},
             {"finishRepairing", "You have fully repaired this window!"}
     };
