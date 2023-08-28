@@ -22,6 +22,7 @@ public enum PowerUp {
     BONUS_GOLD("Bonus Gold");
 
     private final String name;
+    public static final Set<PowerUp> PATTERN_POWERUPS = new HashSet<>(Arrays.asList(INSTA_KILL, MAX_AMMO, SHOPPING_SPREE));
 
     private Optional<List<SortedSet<Integer>>> pattern = Optional.empty();
 
