@@ -13,6 +13,7 @@ import si.pingisfun.nez.handlers.alert.PowerUpAlert;
 import si.pingisfun.nez.handlers.base.*;
 import si.pingisfun.nez.handlers.chat.HideGoldMessages;
 import si.pingisfun.nez.handlers.chat.HideWindowRepairMessages;
+import si.pingisfun.nez.handlers.entity.PowerUpCountdown;
 import si.pingisfun.nez.handlers.game.ZombiesGame;
 
 /**
@@ -54,6 +55,10 @@ public class NotEnoughZombies {
         // Chat
         MinecraftForge.EVENT_BUS.register(new HideGoldMessages());
         MinecraftForge.EVENT_BUS.register(new HideWindowRepairMessages());
+
+        // Entity
+        MinecraftForge.EVENT_BUS.register(new PowerUpCountdown());
+
 
         // Debug
         MinecraftForge.EVENT_BUS.register(new TestHandler());
