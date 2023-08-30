@@ -2,7 +2,6 @@ package si.pingisfun.nez.handlers.base;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityArmorStand;
-import net.minecraft.entity.monster.EntityGiantZombie;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent;
@@ -17,6 +16,7 @@ import si.pingisfun.nez.enums.PowerUp;
 import si.pingisfun.nez.events.entity.PowerUpDespawnEvent;
 import si.pingisfun.nez.events.entity.PowerUpSpawnEvent;
 import si.pingisfun.nez.utils.JavaUtils;
+import si.pingisfun.nez.utils.MinecraftUtils;
 import si.pingisfun.nez.utils.ZombiesUtils;
 
 import java.util.*;
@@ -70,7 +70,8 @@ public class LivingUpdateEventHandler {
     }
 
     private void nameChange(EntityLivingBase entity) {
-        String name = entity.getName();
+        String name = MinecraftUtils.removeCustomTextFromName(entity.getName());
+
         UUID uuid = entity.getUniqueID();
         String oldName = entityNameCache.get(uuid);
         if (name.equals(oldName)) {

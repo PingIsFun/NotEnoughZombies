@@ -14,6 +14,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class MinecraftUtils {
+    private static final String NAME_SEPARATOR = "\uD83C\uDF82";// "🎂";
+
     public static String removeFormatting(String text) {
         return text.replaceAll("§.", "");
     }
@@ -60,5 +62,11 @@ public class MinecraftUtils {
         return getSidebarLines().get(line);
     }
 
+    public static String removeCustomTextFromName(String name) {
+        if (!name.contains(NAME_SEPARATOR)) {
+            return name;
+        }
+        return name.split(NAME_SEPARATOR)[0];
+    }
 }
 
