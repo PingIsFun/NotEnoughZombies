@@ -56,7 +56,10 @@ public enum PowerUp {
         return name;
     }
 
-    public Optional<Integer> getPatternNumber(int round) {
+    public Optional<Integer> getPatternNumber(Integer round) {
+        if (Objects.isNull(round)) {
+            return Optional.empty();
+        }
         Optional<List<SortedSet<Integer>>> patternDataOption = this.getPattern();
         if (!patternDataOption.isPresent()) {
             return Optional.empty();
