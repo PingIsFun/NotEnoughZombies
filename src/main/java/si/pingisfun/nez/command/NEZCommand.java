@@ -30,7 +30,7 @@ public class NEZCommand {
 
     @Main
     private void handle() {
-        ChatUtil.printMessage("test");
+        NotEnoughZombies.config.openGui();
     }
 
     @SubCommand(aliases = "sp")
