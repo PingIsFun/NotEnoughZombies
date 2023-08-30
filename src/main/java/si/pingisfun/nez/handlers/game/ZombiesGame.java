@@ -16,7 +16,7 @@ import java.util.*;
 
 public class ZombiesGame {
     private ZombiesMap map;
-    private Integer currentRound;
+    private int currentRound;
     private Map<PowerUp, Integer> powerUpPatternMap = new HashMap<>(3);
     private boolean isInGame;
 
@@ -96,7 +96,7 @@ public class ZombiesGame {
     private void clean() {
         isInGame = false;
         map = null;
-        currentRound = null;
+        currentRound = -1;
         powerUpPatternMap = new HashMap<>(3);
     }
 
