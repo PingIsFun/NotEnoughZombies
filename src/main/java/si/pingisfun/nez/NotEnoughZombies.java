@@ -4,6 +4,7 @@ import net.minecraftforge.common.MinecraftForge;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import si.pingisfun.nez.command.NEZCommand;
+import si.pingisfun.nez.command.TestCommand;
 import si.pingisfun.nez.config.ModConfig;
 import cc.polyfrost.oneconfig.events.event.InitializationEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -40,6 +41,7 @@ public class NotEnoughZombies {
         config = new ModConfig();
         game = new ZombiesGame();
         CommandManager.INSTANCE.registerCommand(new NEZCommand());
+        CommandManager.INSTANCE.registerCommand(new TestCommand());
 
         // Base Handlers
         MinecraftForge.EVENT_BUS.register(new TitleEventHandler());
