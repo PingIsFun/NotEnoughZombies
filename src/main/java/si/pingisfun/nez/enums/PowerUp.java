@@ -121,4 +121,12 @@ public enum PowerUp {
         }
         return Optional.empty(); // If no number is found
     }
+
+    @Override
+    public String toString() {
+        return "PowerUp{" +
+                "name='" + name + '\'' +
+                ", pattern=" + pattern +
+                '}';
+    }
 }
