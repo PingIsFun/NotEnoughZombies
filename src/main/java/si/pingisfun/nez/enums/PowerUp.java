@@ -40,7 +40,7 @@ public enum PowerUp {
     }
 
     public boolean hasPattern() {
-        return Objects.nonNull(this.pattern);
+        return this.pattern.isPresent();
     }
 
     public static Optional<PowerUp> getPowerUpByName(String name) {
