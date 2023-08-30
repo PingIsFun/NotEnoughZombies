@@ -59,8 +59,6 @@ public class ActionBarChatEventHandler {
 
         } else {
             // Chat
-            NotEnoughZombies.LOGGER.info("{" + event.type + "} \"" + event.message.getUnformattedText());
-
             Map.Entry<String, List<Matcher>> matrixRes = JavaUtils.matchRegexMatrix(CHAT_REGEX_MATRIX, event.message.getUnformattedText());
             if (Objects.isNull(matrixRes)) {
                 return;
@@ -70,7 +68,6 @@ public class ActionBarChatEventHandler {
             Matcher chatMatcher = matrixRes.getValue().get(0);
 
             EventBus bus = MinecraftForge.EVENT_BUS;
-            NotEnoughZombies.LOGGER.info("CHAT TYPE: " + type);
             switch (type) {
                 case "knockedDown": {
                     String player = chatMatcher.group(1);
@@ -162,11 +159,6 @@ public class ActionBarChatEventHandler {
                 }
 
             }
-        }
-
-
-        if (event.type == 1) {
-            NotEnoughZombies.LOGGER.info("{" + event.type + "} " + event.message.getFormattedText());
         }
     }
 }
