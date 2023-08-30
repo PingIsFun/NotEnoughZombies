@@ -48,6 +48,7 @@ public class NotEnoughZombies {
         MinecraftForge.EVENT_BUS.register(new ActionBarChatEventHandler());
 //        MinecraftForge.EVENT_BUS.register(new PlaySoundEventHandler());
         MinecraftForge.EVENT_BUS.register(new LivingUpdateEventHandler());
+        MinecraftForge.EVENT_BUS.register(new EntityJoinWorldHandler());
 
 
         // New Game
