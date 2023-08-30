@@ -17,16 +17,6 @@ import si.pingisfun.nez.config.ModConfig;
 
 public class TestHandler {
     final static Logger TEST_LOGGER =  LogManager.getLogger("NEZ TEST");
-
-    @SubscribeEvent
-    public void onEntityJoinWorld(EntityJoinWorldEvent entityJoinWorldEvent) {
-        if (ModConfig.test != 1) {
-            return;
-        }
-        Entity entity = entityJoinWorldEvent.entity;
-        World world = entityJoinWorldEvent.world;
-        TEST_LOGGER.info(world.getEntityByID(entity.getEntityId()));
-    }
     @SubscribeEvent
     public void onPlayedSound(PlaySoundEvent playSoundEvent) {
         if (ModConfig.test != 2) {
