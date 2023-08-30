@@ -33,7 +33,11 @@ public class ModConfig extends Config {
             name = "Hide Window Repair Messages"
     )
     public static boolean hideWindowRepairMessages = false; // The default value for the boolean Switch.
-    
+    @Switch(
+            name = "Show despawn countdown next to the power up"
+    )
+    public static boolean powerupCountdown = false; // The default value for the boolean Switch.
+
     @Slider(
             name = "TEST",
             step = 1,
