@@ -2,6 +2,7 @@ package si.pingisfun.nez.handlers.base;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityArmorStand;
+import net.minecraft.entity.monster.EntityGiantZombie;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent;
@@ -13,6 +14,7 @@ import org.apache.logging.log4j.Logger;
 import si.pingisfun.nez.NotEnoughZombies;
 import si.pingisfun.nez.config.ModConfig;
 import si.pingisfun.nez.enums.PowerUp;
+import si.pingisfun.nez.events.entity.PowerUpDespawnEvent;
 import si.pingisfun.nez.events.entity.PowerUpSpawnEvent;
 import si.pingisfun.nez.utils.JavaUtils;
 import si.pingisfun.nez.utils.ZombiesUtils;
@@ -26,13 +28,7 @@ public class LivingUpdateEventHandler {
     private static final  Logger RENDER_LOGGER = LogManager.getLogger("RenderLivingEventHandler");
     private static final Pattern REVIVE_SECONDS_PATTERN = Pattern.compile("§c\\d+\\.\\d+s");
     private static final  int MAX_CACHE_SIZE = 200;
-    LinkedHashMap<UUID, String> entityNameCache = new LinkedHashMap<UUID, String>() {
-        @Override
-        protected boolean removeEldestEntry(final Map.Entry eldest) {
-            return size() > MAX_CACHE_SIZE;
-        }
-    };
-    LinkedHashMap<UUID, Integer> entitySpawnCache = new LinkedHashMap<UUID, Integer>() {
+    Map<UUID, String> entityNameCache = new LinkedHashMap<UUID, String>() {
         @Override
         protected boolean removeEldestEntry(final Map.Entry eldest) {
             return size() > MAX_CACHE_SIZE;
@@ -63,7 +59,7 @@ public class LivingUpdateEventHandler {
         }
 
         if (entity instanceof EntityArmorStand) {
-            onSpawn(entity);
+            nameChange(entity);
         } else {
             if (ModConfig.test != 3) {
                 return;
@@ -81,23 +77,13 @@ public class LivingUpdateEventHandler {
             return;
         }
         entityNameCache.put(uuid, name);
-    }
-
-    private void onSpawn(EntityLivingBase entity) {
-        UUID uuid = entity.getUniqueID();
-        if (Objects.isNull(entitySpawnCache.get(uuid))) {
-          return;
-        }
-
-        entitySpawnCache.put(uuid, 0);
-
-        String name = entity.getName();
         if (entity instanceof EntityArmorStand) {
-            handleArmorStandEntityOnSpawn(entity, name);
+            handleArmorStandEntity(entity, name);
         }
+
     }
 
-    private void handleArmorStandEntityOnSpawn(EntityLivingBase entity, String name) {
+    private void handleArmorStandEntity(EntityLivingBase entity, String name) {
         Map.Entry<String, List<Matcher>> matrixRes = JavaUtils.matchRegexMatrix(ARMOR_STAND_REGEX_MATRIX, name);
         if (Objects.isNull(matrixRes)) {
             return;
@@ -115,7 +101,11 @@ public class LivingUpdateEventHandler {
                 return;
             }
 
-            bus.post(new PowerUpSpawnEvent(entity, powerUpOption.get()));
+            if (name.startsWith("§f")) {
+                bus.post(new PowerUpDespawnEvent(entity, powerUpOption.get()));
+            } else {
+                bus.post(new PowerUpSpawnEvent(entity, powerUpOption.get()));
+            }
         }
     }
 }
