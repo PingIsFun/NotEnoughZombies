@@ -15,6 +15,6 @@ public class EntityJoinWorldHandler {
         if (!(entity instanceof EntityGiantZombie)) {
             return;
         }
-        ChatUtil.sendChatMessage("Gian Zombie Spawned");
+//        ChatUtil.sendChatMessage("Gian Zombie Spawned");
     }
 }
