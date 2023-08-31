@@ -11,6 +11,6 @@ public class HideGoldMessages {
         if (!ModConfig.hideGoldMessages) {
             return;
         }
-        goldReceiveEvent.getEvent().setCanceled(true);
+        goldReceiveEvent.getChatEvent().setCanceled(true);
     }
 }

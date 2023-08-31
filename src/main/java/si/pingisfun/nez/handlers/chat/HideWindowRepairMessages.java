@@ -11,6 +11,6 @@ public class HideWindowRepairMessages {
         if (!ModConfig.hideWindowRepairMessages) {
             return;
         }
-        windowRepairEvent.getEvent().setCanceled(true);
+        windowRepairEvent.getChatEvent().setCanceled(true);
     }
 }

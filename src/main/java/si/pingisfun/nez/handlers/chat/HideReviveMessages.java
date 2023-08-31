@@ -10,6 +10,6 @@ public class HideReviveMessages {
         if (!ModConfig.hideReviveMessages) {
             return;
         }
-        reviveEvent.getEvent().setCanceled(true);
+        reviveEvent.getChatEvent().setCanceled(true);
     }
 }

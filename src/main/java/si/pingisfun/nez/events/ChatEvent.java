@@ -10,7 +10,7 @@ public abstract class ChatEvent extends Event {
         this.event = event;
     }
 
-    public ClientChatReceivedEvent getEvent() {
+    public ClientChatReceivedEvent getChatEvent() {
         return event;
     }
 }
