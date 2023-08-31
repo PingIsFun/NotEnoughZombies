@@ -1,23 +1,17 @@
 package si.pingisfun.nez.events.chat;
 
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
-import net.minecraftforge.fml.common.eventhandler.Event;
+import si.pingisfun.nez.events.ChatEvent;
 
-public class GoldReceiveEvent extends Event implements ChatEvent {
-    private final ClientChatReceivedEvent event;
+public class GoldReceiveEvent extends ChatEvent {
     private final int amount;
 
     public GoldReceiveEvent(ClientChatReceivedEvent event, int amount) {
-        this.event = event;
+        super(event);
         this.amount = amount;
     }
 
     public int getAmount() {
         return amount;
-    }
-
-    @Override
-    public ClientChatReceivedEvent getEvent() {
-        return event;
     }
 }

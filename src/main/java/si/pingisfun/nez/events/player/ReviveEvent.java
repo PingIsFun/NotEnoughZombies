@@ -1,12 +1,14 @@
 package si.pingisfun.nez.events.player;
 
-import net.minecraftforge.fml.common.eventhandler.Event;
+import net.minecraftforge.client.event.ClientChatReceivedEvent;
+import si.pingisfun.nez.events.ChatEvent;
 
-public class ReviveEvent extends Event {
+public class ReviveEvent extends ChatEvent {
     private final String reviver;
     private final String revivedPlayer;
 
-    public ReviveEvent(String reviver, String revivedPlayer) {
+    public ReviveEvent(ClientChatReceivedEvent event, String reviver, String revivedPlayer) {
+        super(event);
         this.reviver = reviver;
         this.revivedPlayer = revivedPlayer;
     }

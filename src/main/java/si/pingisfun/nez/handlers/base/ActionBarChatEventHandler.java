@@ -9,6 +9,7 @@ import si.pingisfun.nez.enums.PlayerConnectionStatus;
 import si.pingisfun.nez.enums.PowerUp;
 import si.pingisfun.nez.enums.WindowRepair;
 import si.pingisfun.nez.events.chat.GoldReceiveEvent;
+import si.pingisfun.nez.events.game.OpenAreaEvent;
 import si.pingisfun.nez.events.player.*;
 import si.pingisfun.nez.events.self.ItemPurchaseEvent;
 import si.pingisfun.nez.events.self.WindowRepairEvent;
@@ -75,13 +76,13 @@ public class ActionBarChatEventHandler {
                     String location = chatMatcher.group(3);
                     int timeLeft = Integer.parseInt(chatMatcher.group(4));
                     boolean self = chatMatcher.group(5).equals("get revived");
-                    bus.post(new PlayerDownEvent(player, killer, location,timeLeft,self));
+                    bus.post(new PlayerDownEvent(event, player, killer, location, timeLeft, self));
                     break;
                 }
                 case "revived": {
                     String reviver = chatMatcher.group(1);
                     String revivedPlayer = chatMatcher.group(2);
-                    bus.post(new ReviveEvent(reviver, revivedPlayer));
+                    bus.post(new ReviveEvent(event, reviver, revivedPlayer));
                     break;
                 }
                 case "powerUp": {
@@ -101,39 +102,39 @@ public class ActionBarChatEventHandler {
                         duration = Integer.parseInt(durationRaw);
                     }
 
-                    bus.post(new PowerUpPickupEvent(player, powerUpOption.get(), duration));
+                    bus.post(new PowerUpPickupEvent(event, player, powerUpOption.get(), duration));
                     break;
                 }
                 case "foundInLChest": {
                     String player = chatMatcher.group(1);
                     String item = chatMatcher.group(2);
-                    bus.post(new LuckyChestEvent(player, item));
+                    bus.post(new LuckyChestEvent(event, player, item));
                     break;
                 }
                 case "playerLeft": {
                     String player = chatMatcher.group(1);
-                    bus.post(new PlayerConnectionStatusEvent(player, PlayerConnectionStatus.LEFT));
+                    bus.post(new PlayerConnectionStatusEvent(event, player, PlayerConnectionStatus.LEFT));
                     break;
                 }
                 case "playerRejoined": {
                     String player = chatMatcher.group(1);
-                    bus.post(new PlayerConnectionStatusEvent(player, PlayerConnectionStatus.REJOINED));
+                    bus.post(new PlayerConnectionStatusEvent(event, player, PlayerConnectionStatus.REJOINED));
                     break;
                 }
                 case "openArea": {
                     String player = chatMatcher.group(1);
                     String location = chatMatcher.group(2);
-                    bus.post(new PlayerConnectionStatusEvent.OpenAreaEvent(player, location));
+                    bus.post(new OpenAreaEvent(event, player, location));
                     break;
                 }
                 case "itemPurchase": {
                     String item = chatMatcher.group(1);
-                    bus.post(new ItemPurchaseEvent(item));
+                    bus.post(new ItemPurchaseEvent(event, item));
                     break;
                 }
                 case "hitTarget": {
                     String player = chatMatcher.group(1);
-                    bus.post(new LuckyChestEvent.HitTargetEvent(player));
+                    bus.post(new HitTargetEvent(event, player));
                     break;
                 }
                 case "receiveGold": {

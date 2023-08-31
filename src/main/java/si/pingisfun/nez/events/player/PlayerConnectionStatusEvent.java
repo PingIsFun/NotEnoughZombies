@@ -1,13 +1,15 @@
 package si.pingisfun.nez.events.player;
 
-import net.minecraftforge.fml.common.eventhandler.Event;
+import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import si.pingisfun.nez.enums.PlayerConnectionStatus;
+import si.pingisfun.nez.events.ChatEvent;
 
-public class PlayerConnectionStatusEvent extends Event {
+public class PlayerConnectionStatusEvent extends ChatEvent {
     private final String player;
     private final PlayerConnectionStatus status;
 
-    public PlayerConnectionStatusEvent(String player, PlayerConnectionStatus status) {
+    public PlayerConnectionStatusEvent(ClientChatReceivedEvent event, String player, PlayerConnectionStatus status) {
+        super(event);
         this.player = player;
         this.status = status;
     }
@@ -18,23 +20,5 @@ public class PlayerConnectionStatusEvent extends Event {
 
     public PlayerConnectionStatus getStatus() {
         return status;
-    }
-
-    public static class OpenAreaEvent extends Event {
-        private final String player;
-        private final String area;
-
-        public OpenAreaEvent(String player, String area) {
-            this.player = player;
-            this.area = area;
-        }
-
-        public String getArea() {
-            return area;
-        }
-
-        public String getPlayer() {
-            return player;
-        }
     }
 }
