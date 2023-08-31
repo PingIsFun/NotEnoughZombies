@@ -2,11 +2,11 @@
   {
     "modid": "${id}",
     "name": "${name}",
-    "description": "",
+    "description": "Utility mod for Hypixel Zombies",
     "version": "${version}",
     "mcversion": "1.8.9",
-    "url": "",
-    "updateUrl": "",
+    "url": "https://github.com/PingIsFun/NotEnoughZombies/",
+    "updateUrl": "https://github.com/PingIsFun/NotEnoughZombies/releases",
     "authorList": [
       "PingIsFun"
     ],
