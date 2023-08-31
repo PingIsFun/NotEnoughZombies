@@ -76,7 +76,7 @@ public class ActionBarChatEventHandler {
                     String location = chatMatcher.group(3);
                     int timeLeft = Integer.parseInt(chatMatcher.group(4));
                     boolean self = chatMatcher.group(5).equals("get revived");
-                    bus.post(new PlayerDownEvent(event, player, killer, location, timeLeft, self));
+                    bus.post(new PlayerKnockdownEvent(event, player, killer, location, timeLeft, self));
                     break;
                 }
                 case "revived": {
