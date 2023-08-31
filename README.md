@@ -19,7 +19,7 @@ Utility mod for Hypixel Zombies
 
 The next round that the power up will spawn (-1 if the pattern can't be determined yet)
 
-### Hide Message
+### Hide Messages
 
 - Hide gold pickup messages
 - Hide window repair messages
