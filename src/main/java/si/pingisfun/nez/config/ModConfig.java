@@ -51,6 +51,11 @@ public class ModConfig extends Config {
     )
     public static boolean hideWindowRepairMessages = false;
 
+    @Switch(
+            name = "Hide Window Repair Messages",
+            category = "Chat"
+    )
+    public static boolean hideReviveMessages = false;
 
     @Slider(
             name = "TEST",
