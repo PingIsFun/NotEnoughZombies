@@ -23,7 +23,7 @@ The next round that the power up will spawn (-1 if the pattern can't be determin
 
 - Hide gold pickup messages
 - Hide window repair messages
-- Hide player knockdown Messages
+- Hide player knockdown messages
 - Hide player revive messages
 
 ---
