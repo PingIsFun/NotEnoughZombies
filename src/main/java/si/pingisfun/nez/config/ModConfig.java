@@ -41,21 +41,33 @@ public class ModConfig extends Config {
 
     @Switch(
             name = "Hide Gold Received Messages",
-            category = "Chat"
+            category = "Chat",
+            subcategory = "Hide Messages"
     )
     public static boolean hideGoldMessages = false;
 
     @Switch(
             name = "Hide Window Repair Messages",
-            category = "Chat"
+            category = "Chat",
+            subcategory = "Hide Messages"
     )
     public static boolean hideWindowRepairMessages = false;
 
     @Switch(
-            name = "Hide Window Repair Messages",
-            category = "Chat"
+            name = "Hide Revive Messages",
+            category = "Chat",
+            subcategory = "Hide Messages"
     )
     public static boolean hideReviveMessages = false;
+
+    @Switch(
+            name = "Hide Knockdown Messages",
+            category = "Chat",
+            subcategory = "Hide Messages"
+    )
+    public static boolean hideKnockdownMessages = false;
+
+
 
     @Slider(
             name = "TEST",
