@@ -2,6 +2,7 @@ package si.pingisfun.nez.config;
 
 import cc.polyfrost.oneconfig.config.Config;
 import cc.polyfrost.oneconfig.config.annotations.Dropdown;
+import cc.polyfrost.oneconfig.config.annotations.Exclude;
 import cc.polyfrost.oneconfig.config.annotations.Slider;
 import cc.polyfrost.oneconfig.config.annotations.Switch;
 import cc.polyfrost.oneconfig.config.data.Mod;
@@ -68,7 +69,7 @@ public class ModConfig extends Config {
     public static boolean hideKnockdownMessages = false;
 
 
-
+    @Exclude
     @Slider(
             name = "TEST",
             step = 1,

@@ -25,7 +25,6 @@ import java.util.regex.Pattern;
 
 public class LivingUpdateEventHandler {
     private static final  Set<String> IGNORE_ENTITY_SET = new HashSet<>(Arrays.asList("Armor Stand", "§c§lTarget Practice", "§e§lHOLD SNEAK TO REVIVE!", "§e■■■■■■■■■■■■■■■"));
-    private static final  Logger RENDER_LOGGER = LogManager.getLogger("RenderLivingEventHandler");
     private static final Pattern REVIVE_SECONDS_PATTERN = Pattern.compile("§c\\d+\\.\\d+s");
     private static final  int MAX_CACHE_SIZE = 200;
     Map<UUID, String> entityNameCache = new LinkedHashMap<UUID, String>() {
@@ -64,7 +63,6 @@ public class LivingUpdateEventHandler {
             if (ModConfig.test != 3) {
                 return;
             }
-            RENDER_LOGGER.info(name);
         }
 
     }

@@ -69,7 +69,6 @@ public class ZombiesGame {
     public void onPowerUpPickup(PowerUpPickupEvent powerUpPickupEvent) {
         // Fix for instant pickup of powerups
         PowerUp powerUp = powerUpPickupEvent.getPowerUp();
-        NotEnoughZombies.LOGGER.info("PowerUp Pickup event triggered for {}", powerUpPickupEvent.getPowerUp().getName());
 
         if (!PowerUp.PATTERN_POWERUPS.contains(powerUp)) {
             return;
