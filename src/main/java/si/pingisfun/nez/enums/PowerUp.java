@@ -2,26 +2,20 @@ package si.pingisfun.nez.enums;
 
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public enum PowerUp {
-    INSTA_KILL("Insta Kill", new Pattern(ZombiesMap.ALIEN_ARCADIUM, new int[][]{
-            {2, 5, 8, 11, 14, 17, 20, 23}, {},
-            {3, 6, 9, 12, 15, 18, 21}, {}
-    })),
-    MAX_AMMO("Max Ammo", new Pattern(ZombiesMap.ALIEN_ARCADIUM, new int[][]{
-            {2, 5, 8, 12, 16}, {1, 6},
-            {3, 6, 9, 13, 17}, {2, 7}
-    })),
-    SHOPPING_SPREE("Shopping Spree", new Pattern(() -> {
-        HashMap<ZombiesMap, List<SortedSet<Integer>>> r = new HashMap<>(1);
-        r.put(ZombiesMap.ALIEN_ARCADIUM, Pattern.intConverter(new int[][]{
-                {5, 15, 45}, {5},
-                {6}, {6},
-                {7}, {7}
-        }));
-        return r;
-    }
+    INSTA_KILL("Insta Kill", Arrays.asList(
+            new TreeSet<>(Arrays.asList(2, 5, 8, 11, 14, 17, 20, 23)), Collections.emptySortedSet(),
+            new TreeSet<>(Arrays.asList(3, 6, 9, 12, 15, 18, 21)), Collections.emptySortedSet()
+    )),
+    MAX_AMMO("Max Ammo", Arrays.asList(
+            new TreeSet<>(Arrays.asList(2, 5, 8, 12, 16)), new TreeSet<>(Arrays.asList(1, 6)),
+            new TreeSet<>(Arrays.asList(3, 6, 9, 13, 17)), new TreeSet<>(Arrays.asList(2, 7))
+    )),
+    SHOPPING_SPREE("Shopping Spree", Arrays.asList(
+            new TreeSet<>(Arrays.asList(5, 15, 45)), new TreeSet<>(Collections.singleton(5)),
+            new TreeSet<>(Collections.singleton(6)), new TreeSet<>(Collections.singleton(6)),
+            new TreeSet<>(Collections.singleton(7)), new TreeSet<>(Collections.singleton(7))
     )),
     DOUBLE_GOLD("Double Gold"),
     CARPENTER("Carpenter"),
@@ -30,9 +24,9 @@ public enum PowerUp {
     private final String name;
     public static final Set<PowerUp> PATTERN_POWERUPS = new HashSet<>(Arrays.asList(INSTA_KILL, MAX_AMMO, SHOPPING_SPREE));
 
-    private Optional<Pattern> pattern = Optional.empty();
+    private Optional<List<SortedSet<Integer>>> pattern = Optional.empty();
 
-    PowerUp(String name, Pattern pattern) {
+    PowerUp(String name, List<SortedSet<Integer>> pattern) {
         this.name = name;
         this.pattern = Optional.of(pattern);
     }
@@ -41,7 +35,7 @@ public enum PowerUp {
         this.name = name;
     }
 
-    public Optional<Pattern> getPattern() {
+    public Optional<List<SortedSet<Integer>>> getPattern() {
         return pattern;
     }
 
@@ -63,13 +57,12 @@ public enum PowerUp {
     }
 
     public Optional<Integer> getPatternNumber(int round) {
-        Optional<Pattern> patternOption = this.getPattern();
-        if (!patternOption.isPresent()) {
+        Optional<List<SortedSet<Integer>>> patternDataOption = this.getPattern();
+        if (!patternDataOption.isPresent()) {
             return Optional.empty();
         }
 
-        List<SortedSet<Integer>> patternData = patternOption.get().getPatternData();
-
+        List<SortedSet<Integer>> patternData = patternDataOption.get();
         for (int i = 0; i < patternData.size(); i += 2) {
             SortedSet<Integer> powerUpPattern = patternData.get(i);
             if (powerUpPattern.contains(round)) {
@@ -84,12 +77,12 @@ public enum PowerUp {
             return Optional.empty();
         }
 
-        Optional<Pattern> patternOptional = this.getPattern();
-        if (!patternOptional.isPresent()) {
+        Optional<List<SortedSet<Integer>>> patternDataOption = this.getPattern();
+        if (!patternDataOption.isPresent()) {
             return Optional.empty();
         }
 
-        List<SortedSet<Integer>> patternData = patternOptional.get().getPatternData();
+        List<SortedSet<Integer>> patternData = patternDataOption.get();
 
         if (patternData.size() < patternNum + 1) {
             return Optional.empty();
@@ -124,40 +117,5 @@ public enum PowerUp {
             }
         }
         return Optional.empty(); // If no number is found
-    }
-
-    public static class Pattern {
-        ZombiesMap map;
-        List<SortedSet<Integer>> patternData;
-
-        public Pattern(Map<ZombiesMap, List<SortedSet<Integer>>> data) {
-
-            this.map = map;
-            this.patternData = res;
-        }
-        public static List<SortedSet<Integer>> intConverter(int[][] data) {
-            List<SortedSet<Integer>> res = new ArrayList<>();
-
-            for (int[] arr : data) {
-                res.add(new TreeSet<>(Arrays.stream(arr).boxed().collect(Collectors.toList())));
-            }
-            return res;
-        }
-
-        public ZombiesMap getMap() {
-            return map;
-        }
-
-        public List<SortedSet<Integer>> getPatternData() {
-            return patternData;
-        }
-
-        @Override
-        public String toString() {
-            return "Pattern{" +
-                    "map=" + map +
-                    ", patternData=" + patternData +
-                    '}';
-        }
     }
 }
