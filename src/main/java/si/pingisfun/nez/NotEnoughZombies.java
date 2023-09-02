@@ -68,6 +68,6 @@ public class NotEnoughZombies {
 
 
         // Debug
-        MinecraftForge.EVENT_BUS.register(new TestHandler());
+//        MinecraftForge.EVENT_BUS.register(new TestHandler());
     }
 }
