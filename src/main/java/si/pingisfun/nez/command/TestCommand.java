@@ -7,17 +7,15 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraftforge.common.MinecraftForge;
 import si.pingisfun.nez.NotEnoughZombies;
 import si.pingisfun.nez.enums.PowerUp;
+import si.pingisfun.nez.enums.config.ChatOutput;
 import si.pingisfun.nez.events.entity.PowerUpSpawnEvent;
+import si.pingisfun.nez.utils.ChatUtil;
 
 @Command(value = "test")
 public class TestCommand {
     @Main
     private void handle() {
 
-        Minecraft minecraft = Minecraft.getMinecraft();
-        NotEnoughZombies.LOGGER.debug("TEST DEBUG");
-        NotEnoughZombies.LOGGER.info(minecraft);
-        NotEnoughZombies.LOGGER.info(minecraft.pointedEntity);
-        MinecraftForge.EVENT_BUS.post(new PowerUpSpawnEvent((EntityLivingBase) minecraft.pointedEntity, PowerUp.INSTA_KILL));
+        ChatUtil.message("TEST", ChatOutput.SELF);
     }
 }
