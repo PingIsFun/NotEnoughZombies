@@ -6,6 +6,7 @@ import cc.polyfrost.oneconfig.utils.commands.annotations.Command;
 import cc.polyfrost.oneconfig.utils.commands.annotations.Main;
 import si.pingisfun.nez.enums.PowerUp;
 import si.pingisfun.nez.utils.ChatUtil;
+import si.pingisfun.nez.utils.ZombiesUtils;
 
 import java.util.*;
 
@@ -47,7 +48,7 @@ public class NEZCommand {
             return;
         }
 
-        Optional<Integer> powerUpPatternNumOption = powerUp.getPatternNumber(round);
+        Optional<Integer> powerUpPatternNumOption = powerUp.getPatternNumber(ZombiesUtils.getMap(), round);
         if (!powerUpPatternNumOption.isPresent()) {
             ChatUtil.printError("Power up pattern not found");
             return;

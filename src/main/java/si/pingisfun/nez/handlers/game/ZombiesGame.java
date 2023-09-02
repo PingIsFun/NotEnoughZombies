@@ -48,7 +48,7 @@ public class ZombiesGame {
     public void onPowerUpSpawn(PowerUpSpawnEvent powerUpSpawnEvent) {
         PowerUp powerUp = powerUpSpawnEvent.getPowerUp();
 
-        if (!powerUp.hasPattern()) {
+        if (!powerUp.hasPattern(this.map)) {
             return;
         }
 
@@ -56,7 +56,7 @@ public class ZombiesGame {
             return;
         }
 
-        Optional<Integer> patternNum = powerUp.getPatternNumber(this.currentRound);
+        Optional<Integer> patternNum = powerUp.getPatternNumber(this.map, this.currentRound);
 
         if (!patternNum.isPresent()) {
             NotEnoughZombies.LOGGER.warn("PowerUp pattern not found. PowerUp: " + powerUp.getName() + " round: " + this.currentRound);
@@ -70,7 +70,7 @@ public class ZombiesGame {
         // Fix for instant pickup of powerups
         PowerUp powerUp = powerUpPickupEvent.getPowerUp();
 
-        if (!PowerUp.PATTERN_POWERUPS.contains(powerUp)) {
+        if (!powerUp.hasPattern(this.map)) {
             return;
         }
 
@@ -78,7 +78,7 @@ public class ZombiesGame {
             return;
         }
 
-        Optional<Integer> patternNum = powerUp.getPatternNumber(this.currentRound);
+        Optional<Integer> patternNum = powerUp.getPatternNumber(this.map, this.currentRound);
 
         if (!patternNum.isPresent()) {
             NotEnoughZombies.LOGGER.warn("PowerUp pattern not found. PowerUp: " + powerUp.getName() + " round: " + this.currentRound);
@@ -105,11 +105,11 @@ public class ZombiesGame {
             return Optional.empty();
         }
 
-        return powerUp.getNextPowerUpRound(currentRound, patternNum.get());
+        return powerUp.getNextPowerUpRound(this.map, currentRound, patternNum.get());
     }
 
     private Optional<Integer> getPatternNum(PowerUp powerUp) {
-        if (!powerUp.hasPattern()) {
+        if (!powerUp.hasPattern(this.map)) {
             return Optional.empty();
         }
         Integer powerUpPattern = powerUpPatternMap.get(powerUp);
@@ -139,7 +139,7 @@ public class ZombiesGame {
             return;
         }
 
-        Optional<List<SortedSet<Integer>>> patternOptional = powerUp.getPattern();
+        Optional<List<SortedSet<Integer>>> patternOptional = powerUp.getPattern(this.map);
         if (!patternOptional.isPresent()) {
             return;
         }
