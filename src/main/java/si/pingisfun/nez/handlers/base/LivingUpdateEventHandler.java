@@ -59,10 +59,6 @@ public class LivingUpdateEventHandler {
 
         if (entity instanceof EntityArmorStand) {
             nameChange(entity);
-        } else {
-            if (ModConfig.test != 3) {
-                return;
-            }
         }
 
     }

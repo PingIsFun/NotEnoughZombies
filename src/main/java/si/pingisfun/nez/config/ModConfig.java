@@ -1,12 +1,10 @@
 package si.pingisfun.nez.config;
 
 import cc.polyfrost.oneconfig.config.Config;
-import cc.polyfrost.oneconfig.config.annotations.Dropdown;
-import cc.polyfrost.oneconfig.config.annotations.Exclude;
-import cc.polyfrost.oneconfig.config.annotations.Slider;
-import cc.polyfrost.oneconfig.config.annotations.Switch;
+import cc.polyfrost.oneconfig.config.annotations.*;
 import cc.polyfrost.oneconfig.config.data.Mod;
 import cc.polyfrost.oneconfig.config.data.ModType;
+import cc.polyfrost.oneconfig.config.data.OptionSize;
 import si.pingisfun.nez.NotEnoughZombies;
 
 /**
@@ -67,16 +65,6 @@ public class ModConfig extends Config {
             subcategory = "Hide Messages"
     )
     public static boolean hideKnockdownMessages = false;
-
-
-    @Exclude
-    @Slider(
-            name = "TEST",
-            step = 1,
-            min = 0, max = 10
-
-    )
-    public static int test = 0;
 
     public ModConfig() {
         super(new Mod(NotEnoughZombies.NAME, ModType.HYPIXEL), NotEnoughZombies.MODID + ".json");
