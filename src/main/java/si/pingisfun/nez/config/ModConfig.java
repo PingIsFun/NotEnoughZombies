@@ -16,6 +16,14 @@ public class ModConfig extends Config {
      * General
      */
 
+    @DualOption(
+            name = "Prefix",
+            left = "Not Enough Zombies",
+            right = "NEZ",
+            size = OptionSize.DUAL
+    )
+    public static boolean shortPrefix = false;
+
     @Dropdown(
             name = "Alert on power up spawn",
             options = {"Off", "Self", "Party", "Chat"}

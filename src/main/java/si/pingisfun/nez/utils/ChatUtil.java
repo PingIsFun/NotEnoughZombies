@@ -4,10 +4,20 @@ import cc.polyfrost.oneconfig.libs.universal.ChatColor;
 import cc.polyfrost.oneconfig.libs.universal.UChat;
 import net.minecraft.client.Minecraft;
 import si.pingisfun.nez.NotEnoughZombies;
+import si.pingisfun.nez.config.ModConfig;
 import si.pingisfun.nez.enums.config.ChatOutput;
 
 public class ChatUtil {
     static final String PREFIX = ChatColor.DARK_GREEN + "[" + ChatColor.GOLD + NotEnoughZombies.NAME + ChatColor.DARK_GREEN + "] " + ChatColor.RESET;
+    static final String SHORT_PREFIX = ChatColor.DARK_GREEN + "[" + ChatColor.GOLD + NotEnoughZombies.MODID.toUpperCase() + ChatColor.DARK_GREEN + "] " + ChatColor.RESET;
+
+    private static String getPrefix() {
+        if (ModConfig.shortPrefix) {
+            return SHORT_PREFIX;
+        } else {
+            return PREFIX;
+        }
+    }
 
     public static void printFormat(String data) {
         UChat.chat(ChatColor.Companion.translateAlternateColorCodes('&', data));
@@ -18,11 +28,11 @@ public class ChatUtil {
     }
 
     public static void printError(String data) {
-        UChat.chat(PREFIX + ChatColor.RED + data);
+        UChat.chat(getPrefix() + ChatColor.RED + data);
     }
 
     public static void message(String data) {
-        UChat.chat(PREFIX + data);
+        UChat.chat(getPrefix() + data);
     }
 
     public static void message(String data, ChatOutput output) {
@@ -31,7 +41,7 @@ public class ChatUtil {
                 break;
             }
             case SELF: {
-                UChat.chat(PREFIX + data);
+                UChat.chat(getPrefix() + data);
                 break;
             }
             case PARTY: {
