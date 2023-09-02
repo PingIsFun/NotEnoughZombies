@@ -1,46 +1,40 @@
 package si.pingisfun.nez.enums;
 
 
-import java.util.*;
+import si.pingisfun.nez.data.PowerUpPatternData;
 
+import java.util.*;
 public enum PowerUp {
-    INSTA_KILL("Insta Kill", Arrays.asList(
-            new TreeSet<>(Arrays.asList(2, 5, 8, 11, 14, 17, 20, 23)), Collections.emptySortedSet(),
-            new TreeSet<>(Arrays.asList(3, 6, 9, 12, 15, 18, 21)), Collections.emptySortedSet()
-    )),
-    MAX_AMMO("Max Ammo", Arrays.asList(
-            new TreeSet<>(Arrays.asList(2, 5, 8, 12, 16)), new TreeSet<>(Arrays.asList(1, 6)),
-            new TreeSet<>(Arrays.asList(3, 6, 9, 13, 17)), new TreeSet<>(Arrays.asList(2, 7))
-    )),
-    SHOPPING_SPREE("Shopping Spree", Arrays.asList(
-            new TreeSet<>(Arrays.asList(5, 15, 45)), new TreeSet<>(Collections.singleton(5)),
-            new TreeSet<>(Collections.singleton(6)), new TreeSet<>(Collections.singleton(6)),
-            new TreeSet<>(Collections.singleton(7)), new TreeSet<>(Collections.singleton(7))
-    )),
+    INSTA_KILL("Insta Kill",
+            PowerUpPatternData.AlienArcadium.INSTA_KILL,
+            PowerUpPatternData.BadBlood.INSTA_KILL,
+            PowerUpPatternData.DeadEnd.INSTA_KILL
+    ),
+    MAX_AMMO("Max Ammo",
+            PowerUpPatternData.AlienArcadium.MAX_AMMO,
+            PowerUpPatternData.BadBlood.MAX_AMMO,
+            PowerUpPatternData.DeadEnd.MAX_AMMO),
+    SHOPPING_SPREE("Shopping Spree",
+            PowerUpPatternData.AlienArcadium.SHOPPING_SPREE,
+            null,
+            null),
     DOUBLE_GOLD("Double Gold"),
     CARPENTER("Carpenter"),
     BONUS_GOLD("Bonus Gold");
 
     private final String name;
-    public static final Set<PowerUp> PATTERN_POWERUPS = new HashSet<>(Arrays.asList(INSTA_KILL, MAX_AMMO, SHOPPING_SPREE));
+    private EnumMap<ZombiesMap, Optional<List<SortedSet<Integer>>>> patternMap = new EnumMap<>(ZombiesMap.class);
 
-    private Optional<List<SortedSet<Integer>>> pattern = Optional.empty();
-
-    PowerUp(String name, List<SortedSet<Integer>> pattern) {
+    PowerUp(String name, List<SortedSet<Integer>> AApattern, List<SortedSet<Integer>> BBpattern, List<SortedSet<Integer>> DEpattern) {
         this.name = name;
-        this.pattern = Optional.of(pattern);
+        this.patternMap = new EnumMap<>(ZombiesMap.class);
+        patternMap.put(ZombiesMap.ALIEN_ARCADIUM, Optional.ofNullable(AApattern));
+        patternMap.put(ZombiesMap.BAD_BLOOD, Optional.ofNullable(BBpattern));
+        patternMap.put(ZombiesMap.DEAD_END, Optional.ofNullable(DEpattern));
     }
 
     PowerUp(String name) {
         this.name = name;
-    }
-
-    public Optional<List<SortedSet<Integer>>> getPattern() {
-        return pattern;
-    }
-
-    public boolean hasPattern() {
-        return this.pattern.isPresent();
     }
 
     public static Optional<PowerUp> getPowerUpByName(String name) {
@@ -52,15 +46,26 @@ public enum PowerUp {
         return Optional.empty();
     }
 
+    public Optional<List<SortedSet<Integer>>> getPattern(ZombiesMap map) {
+        Optional<List<SortedSet<Integer>>> p = patternMap.get(map);
+
+        if (Objects.isNull(p)) {
+            return Optional.empty();
+        }
+
+        return p;
+    }
+
+    public boolean hasPattern(ZombiesMap map) {
+        return getPattern(map).isPresent();
+    }
+
     public String getName() {
         return name;
     }
 
-    public Optional<Integer> getPatternNumber(Integer round) {
-        if (Objects.isNull(round)) {
-            return Optional.empty();
-        }
-        Optional<List<SortedSet<Integer>>> patternDataOption = this.getPattern();
+    public Optional<Integer> getPatternNumber(ZombiesMap map, int round) {
+        Optional<List<SortedSet<Integer>>> patternDataOption = this.getPattern(map);
         if (!patternDataOption.isPresent()) {
             return Optional.empty();
         }
@@ -75,12 +80,12 @@ public enum PowerUp {
         return Optional.empty();
     }
 
-    public Optional<Integer> getNextPowerUpRound(int currentRound, int patternNum) {
+    public Optional<Integer> getNextPowerUpRound(ZombiesMap map, int currentRound, int patternNum) {
         if (patternNum % 2 == 1) {
             return Optional.empty();
         }
 
-        Optional<List<SortedSet<Integer>>> patternDataOption = this.getPattern();
+        Optional<List<SortedSet<Integer>>> patternDataOption = this.getPattern(map);
         if (!patternDataOption.isPresent()) {
             return Optional.empty();
         }
@@ -126,7 +131,7 @@ public enum PowerUp {
     public String toString() {
         return "PowerUp{" +
                 "name='" + name + '\'' +
-                ", pattern=" + pattern +
+                ", pattern=" + patternMap +
                 '}';
     }
 }
