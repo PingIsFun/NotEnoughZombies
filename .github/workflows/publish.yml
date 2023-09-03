@@ -71,8 +71,7 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
           files: |
-            versions/1.8.9-forge/build/libs/!(*-@(dev|sources|javadoc)).jar
-            versions/1.8.9-forge/build/libs/*-@(dev|sources|javadoc).jar
+            versions/1.8.9-forge/build/libs/nez-1.8.9-forge-${{ env.TAG }}.jar
 
           name: Not Enough Zombies v${{ env.TAG }}
           version: ${{ env.TAG }}
