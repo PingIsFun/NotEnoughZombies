@@ -46,7 +46,7 @@ public class NotEnoughZombies {
         config = new ModConfig();
         game = new ZombiesGame();
         CommandManager.INSTANCE.registerCommand(new NEZCommand());
-        CommandManager.INSTANCE.registerCommand(new TestCommand());
+//        CommandManager.INSTANCE.registerCommand(new TestCommand());
 
         // Base Handlers
         MinecraftForge.EVENT_BUS.register(new TitleEventHandler());
