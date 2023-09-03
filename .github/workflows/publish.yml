@@ -59,7 +59,7 @@ jobs:
       - uses: Kir-Antipov/mc-publish@v3.3
         with:
 
-          github-tag: $TAG
+          github-tag: ${{ env.TAG }}
           github-generate-changelog: true
 
           github-discussion: Announcements
@@ -69,8 +69,8 @@ jobs:
             versions/1.8.9-forge/build/libs/!(*-@(dev|sources|javadoc)).jar
             versions/1.8.9-forge/build/libs/*-@(dev|sources|javadoc).jar
 
-          name: Not Enough Zombies v$TAG
-          version: $TAG
+          name: Not Enough Zombies v${{ env.TAG }}
+          version: ${{ env.TAG }}
           version-type: release
 
           loaders: forge
