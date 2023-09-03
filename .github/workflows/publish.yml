@@ -65,7 +65,7 @@ jobs:
 
           github-tag: ${{ env.TAG }}
           changelog-file: CHANGELOG.md
-
+          github-draft: true
           github-discussion: Announcements
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
