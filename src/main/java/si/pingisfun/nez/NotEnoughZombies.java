@@ -13,10 +13,7 @@ import cc.polyfrost.oneconfig.utils.commands.CommandManager;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import si.pingisfun.nez.handlers.alert.PowerUpAlert;
 import si.pingisfun.nez.handlers.base.*;
-import si.pingisfun.nez.handlers.chat.HideGoldMessages;
-import si.pingisfun.nez.handlers.chat.HideKnockdownMessages;
-import si.pingisfun.nez.handlers.chat.HideReviveMessages;
-import si.pingisfun.nez.handlers.chat.HideWindowRepairMessages;
+import si.pingisfun.nez.handlers.chat.HideMessages;
 import si.pingisfun.nez.handlers.entity.PowerUpCountdown;
 import si.pingisfun.nez.handlers.game.ZombiesGame;
 import si.pingisfun.nez.handlers.updater.CheckForUpdates;
@@ -61,10 +58,8 @@ public class NotEnoughZombies {
         // Alert
         MinecraftForge.EVENT_BUS.register(new PowerUpAlert());
         // Chat
-        MinecraftForge.EVENT_BUS.register(new HideGoldMessages());
-        MinecraftForge.EVENT_BUS.register(new HideWindowRepairMessages());
-        MinecraftForge.EVENT_BUS.register(new HideReviveMessages());
-        MinecraftForge.EVENT_BUS.register(new HideKnockdownMessages());
+        MinecraftForge.EVENT_BUS.register(new HideMessages());
+
 
         // Entity
         MinecraftForge.EVENT_BUS.register(new PowerUpCountdown());

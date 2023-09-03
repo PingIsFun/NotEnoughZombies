@@ -46,6 +46,7 @@ public class ModConfig extends Config {
      * Chat
      */
 
+    // Hide Messages subcategory
     @Switch(
             name = "Hide Gold Received Messages",
             category = "Chat",
@@ -73,6 +74,42 @@ public class ModConfig extends Config {
             subcategory = "Hide Messages"
     )
     public static boolean hideKnockdownMessages = false;
+
+    @Switch(
+            name = "Hide Target Hit Messages",
+            category = "Chat",
+            subcategory = "Hide Messages"
+    )
+    public static boolean hideHitTargetMessages = false;
+
+    @Switch(
+            name = "Hide Lucky Chest Messages",
+            category = "Chat",
+            subcategory = "Hide Messages"
+    )
+    public static boolean hideLuckyChestMessages = false;
+
+    @Switch(
+            name = "Hide Open Area Messages",
+            category = "Chat",
+            subcategory = "Hide Messages"
+    )
+    public static boolean hideOpenAreaMessages = false;
+
+    @Switch(
+            name = "Hide Player Leave/Rejoin  Messages",
+            category = "Chat",
+            subcategory = "Hide Messages"
+    )
+    public static boolean hidePlayerConnectionStatusMessages = false;
+
+    @Switch(
+            name = "Hide Power Up Pickup  Messages",
+            category = "Chat",
+            subcategory = "Hide Messages"
+    )
+    public static boolean hidePowerUpPickupMessages = false;
+
 
     public ModConfig() {
         super(new Mod(NotEnoughZombies.NAME, ModType.HYPIXEL), NotEnoughZombies.MODID + ".json");
