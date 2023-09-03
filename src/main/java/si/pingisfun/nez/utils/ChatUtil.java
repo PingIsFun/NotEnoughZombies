@@ -11,7 +11,7 @@ public class ChatUtil {
     static final String PREFIX = ChatColor.DARK_GREEN + "[" + ChatColor.GOLD + NotEnoughZombies.NAME + ChatColor.DARK_GREEN + "] " + ChatColor.RESET;
     static final String SHORT_PREFIX = ChatColor.DARK_GREEN + "[" + ChatColor.GOLD + NotEnoughZombies.MODID.toUpperCase() + ChatColor.DARK_GREEN + "] " + ChatColor.RESET;
 
-    private static String getPrefix() {
+    public static String getPrefix() {
         if (ModConfig.shortPrefix) {
             return SHORT_PREFIX;
         } else {

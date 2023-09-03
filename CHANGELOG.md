@@ -1,4 +1,3 @@
 # Changelog 
-## v0.60.4
 
-Test
+- Added mod update checker

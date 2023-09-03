@@ -1,5 +1,6 @@
 package si.pingisfun.nez;
 
+import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.MinecraftForge;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,6 +19,7 @@ import si.pingisfun.nez.handlers.chat.HideReviveMessages;
 import si.pingisfun.nez.handlers.chat.HideWindowRepairMessages;
 import si.pingisfun.nez.handlers.entity.PowerUpCountdown;
 import si.pingisfun.nez.handlers.game.ZombiesGame;
+import si.pingisfun.nez.handlers.updater.CheckForUpdates;
 
 /**
  * The entrypoint of the Example Mod that initializes it.
@@ -36,6 +38,7 @@ public class NotEnoughZombies {
     public static ModConfig config;
     public static final Logger LOGGER = LogManager.getLogger(MODID);
     public static ZombiesGame game;
+    public static final Minecraft minecraft = Minecraft.getMinecraft();
 
     // Register the config and commands.
     @Mod.EventHandler
@@ -66,6 +69,8 @@ public class NotEnoughZombies {
         // Entity
         MinecraftForge.EVENT_BUS.register(new PowerUpCountdown());
 
+        // Update Checker
+        MinecraftForge.EVENT_BUS.register(new CheckForUpdates());
 
         // Debug
 //        MinecraftForge.EVENT_BUS.register(new TestHandler());
