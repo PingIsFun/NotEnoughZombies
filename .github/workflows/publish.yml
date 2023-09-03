@@ -65,13 +65,12 @@ jobs:
 
           github-tag: ${{ env.TAG }}
           github-generate-changelog: true
-          github-draft: true
 
           github-discussion: Announcements
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
           files: |
-            versions/1.8.9-forge/build/libs/nez-1.8.9-forge-${{ env.TAG }}.jar
+            versions/1.8.9-forge/build/libs/nez-1.8.9-forge-*.jar
 
           name: Not Enough Zombies v${{ env.TAG }}
           version: ${{ env.TAG }}
