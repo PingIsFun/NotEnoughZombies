@@ -11,6 +11,10 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
     steps:
     # Get Tag
       - name: Checkout code
@@ -54,7 +58,7 @@ jobs:
     # Publish
       - uses: Kir-Antipov/mc-publish@v3.3
         with:
-          
+
           github-tag: $TAG
           github-generate-changelog: true
 
