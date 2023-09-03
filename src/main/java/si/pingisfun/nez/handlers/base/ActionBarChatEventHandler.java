@@ -28,6 +28,7 @@ public class ActionBarChatEventHandler {
             {"revived", "([a-zA-Z0-9_]{3,16}) revived ([a-zA-Z0-9_]{3,16})!"},
             {"powerUp", "([a-zA-Z0-9_]{3,16}) activated (Shopping Spree|Double Gold|Max Ammo|Insta Kill|Carpenter|Bonus Gold)(?:| for (\\d+)s)!"},
             {"foundInLChest", "([a-zA-Z0-9_]{3,16}) found (.+) in the Lucky Chest!"},
+            {"selfFoundInLChest", "You found (.+) in the Lucky Chest! You have 10s to claim it before it disappears!"},
             {"playerLeft", "([a-zA-Z0-9_]{3,16}) left the game\\."},
             {"playerRejoined", "([a-zA-Z0-9_]{3,16}) rejoined\\."},
             {"openArea", "([a-zA-Z0-9_]{3,16}) opened (.+)!"},
@@ -108,6 +109,12 @@ public class ActionBarChatEventHandler {
                 case "foundInLChest": {
                     String player = chatMatcher.group(1);
                     String item = chatMatcher.group(2);
+                    bus.post(new LuckyChestEvent(event, player, item));
+                    break;
+                }
+                case "selfFoundInLChest": {
+                    String player = NotEnoughZombies.minecraft.thePlayer.getName();
+                    String item = chatMatcher.group(1);
                     bus.post(new LuckyChestEvent(event, player, item));
                     break;
                 }
