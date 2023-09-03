@@ -1,3 +1,4 @@
 # Changelog 
 
-- Added mod update checker
+- Added more options to hide messages
+- Added lucky chest roll history
