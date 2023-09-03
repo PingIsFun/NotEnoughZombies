@@ -8,6 +8,7 @@ import si.pingisfun.nez.events.entity.PowerUpSpawnEvent;
 import si.pingisfun.nez.events.game.GameOverEvent;
 import si.pingisfun.nez.events.game.GameStartEvent;
 import si.pingisfun.nez.events.game.NewRoundEvent;
+import si.pingisfun.nez.events.player.LuckyChestEvent;
 import si.pingisfun.nez.events.player.PowerUpPickupEvent;
 import si.pingisfun.nez.utils.ChatUtil;
 import si.pingisfun.nez.utils.ZombiesUtils;
@@ -15,6 +16,7 @@ import si.pingisfun.nez.utils.ZombiesUtils;
 import java.util.*;
 
 public class ZombiesGame {
+    private final Map<String, Map<String, Integer>> luckyChestRollData = new HashMap<>(4);
     private ZombiesMap map;
     private int currentRound;
     private Map<PowerUp, Integer> powerUpPatternMap = new HashMap<>(3);
@@ -88,6 +90,19 @@ public class ZombiesGame {
     }
 
     @SubscribeEvent
+    public void onLuckyChestEvent(LuckyChestEvent luckyChestEvent) {
+        String player = luckyChestEvent.getPlayer();
+        String item = luckyChestEvent.getItem();
+
+        luckyChestRollData.putIfAbsent(player, new HashMap<>());
+        Map<String, Integer> playerItems = luckyChestRollData.get(player);
+
+        playerItems.putIfAbsent(item, 0);
+        playerItems.put(item, playerItems.get(item) + 1);
+    }
+
+
+    @SubscribeEvent
     public void onGameOver(GameOverEvent gameOverEvent) {
         clean();
     }
@@ -152,5 +167,9 @@ public class ZombiesGame {
 
         powerUpPatternMap.put(powerUp, pattern);
         ChatUtil.message(powerUp.getName() + " pattern set to " + pattern);
+    }
+
+    public Map<String, Map<String, Integer>> getLuckyChestRollData() {
+        return luckyChestRollData;
     }
 }
