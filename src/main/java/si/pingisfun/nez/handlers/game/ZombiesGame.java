@@ -16,7 +16,7 @@ import si.pingisfun.nez.utils.ZombiesUtils;
 import java.util.*;
 
 public class ZombiesGame {
-    private final Map<String, Map<String, Integer>> luckyChestRollData = new HashMap<>(4);
+    private Map<String, Map<String, Integer>> luckyChestRollData = new HashMap<>(4);
     private ZombiesMap map;
     private int currentRound;
     private Map<PowerUp, Integer> powerUpPatternMap = new HashMap<>(3);
@@ -112,6 +112,7 @@ public class ZombiesGame {
         map = null;
         currentRound = -1;
         powerUpPatternMap = new HashMap<>(3);
+        luckyChestRollData = new HashMap<>(4);
     }
 
     public Optional<Integer> getNextPowerUpRound(PowerUp powerUp) {
