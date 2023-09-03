@@ -4,6 +4,7 @@ package si.pingisfun.nez.enums;
 import si.pingisfun.nez.data.PowerUpPatternData;
 
 import java.util.*;
+
 public enum PowerUp {
     INSTA_KILL("Insta Kill",
             PowerUpPatternData.AlienArcadium.INSTA_KILL,

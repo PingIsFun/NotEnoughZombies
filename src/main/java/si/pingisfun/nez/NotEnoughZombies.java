@@ -1,18 +1,21 @@
 package si.pingisfun.nez;
 
+import cc.polyfrost.oneconfig.events.event.InitializationEvent;
+import cc.polyfrost.oneconfig.utils.commands.CommandManager;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import si.pingisfun.nez.command.NEZCommand;
 import si.pingisfun.nez.command.TestCommand;
 import si.pingisfun.nez.config.ModConfig;
-import cc.polyfrost.oneconfig.events.event.InitializationEvent;
-import net.minecraftforge.fml.common.Mod;
-import cc.polyfrost.oneconfig.utils.commands.CommandManager;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import si.pingisfun.nez.handlers.alert.PowerUpAlert;
-import si.pingisfun.nez.handlers.base.*;
+import si.pingisfun.nez.handlers.base.ActionBarChatEventHandler;
+import si.pingisfun.nez.handlers.base.EntityJoinWorldHandler;
+import si.pingisfun.nez.handlers.base.LivingUpdateEventHandler;
+import si.pingisfun.nez.handlers.base.TitleEventHandler;
 import si.pingisfun.nez.handlers.chat.HideMessages;
 import si.pingisfun.nez.handlers.entity.PowerUpCountdown;
 import si.pingisfun.nez.handlers.game.ZombiesGame;
@@ -29,13 +32,13 @@ public class NotEnoughZombies {
     public static final String MODID = "@ID@";
     public static final String NAME = "@NAME@";
     public static final String VERSION = "@VER@";
+    public static final Logger LOGGER = LogManager.getLogger(MODID);
+    public static final Minecraft minecraft = Minecraft.getMinecraft();
     // Sets the variables from `gradle.properties`. See the `blossom` config in `build.gradle.kts`.
     @Mod.Instance(MODID)
     public static NotEnoughZombies INSTANCE; // Adds the instance of the mod, so we can access other variables.
     public static ModConfig config;
-    public static final Logger LOGGER = LogManager.getLogger(MODID);
     public static ZombiesGame game;
-    public static final Minecraft minecraft = Minecraft.getMinecraft();
 
     // Register the config and commands.
     @Mod.EventHandler

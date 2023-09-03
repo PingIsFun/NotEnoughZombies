@@ -4,5 +4,5 @@ public enum WindowRepair {
     START,
     STOP,
     FINISH,
-    ENEMY_NEARBY;
+    ENEMY_NEARBY
 }

@@ -21,6 +21,7 @@ public enum ChatOutput {
         }
         return ChatOutput.OFF;
     }
+
     public static ChatOutput getOutputUpByNumber(int num) {
         ChatOutput[] values = ChatOutput.values();
         if (values.length <= num || num < 0) {

@@ -58,6 +58,7 @@ public class MinecraftUtils {
 
         return lines;
     }
+
     public static String getSitebarLine(int line) {
         return getSidebarLines().get(line);
     }

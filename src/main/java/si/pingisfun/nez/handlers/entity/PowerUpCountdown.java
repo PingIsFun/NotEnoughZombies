@@ -3,9 +3,7 @@ package si.pingisfun.nez.handlers.entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityArmorStand;
 import net.minecraftforge.client.event.RenderLivingEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import si.pingisfun.nez.NotEnoughZombies;
 import si.pingisfun.nez.config.ModConfig;
 import si.pingisfun.nez.events.entity.PowerUpSpawnEvent;
 

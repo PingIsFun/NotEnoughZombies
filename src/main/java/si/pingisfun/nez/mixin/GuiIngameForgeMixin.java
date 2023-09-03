@@ -20,9 +20,10 @@ import java.util.List;
 
 @Mixin(value = GuiIngameForge.class, remap = false)
 public class GuiIngameForgeMixin extends GuiIngame {
-    @Shadow private RenderGameOverlayEvent eventParent;
     @Unique
     private static final String[] IGNORED_TITLES = {"§r", ""};
+    @Shadow
+    private RenderGameOverlayEvent eventParent;
     @Unique
     private TitleEvent notEnoughZombies$oldevent = new TitleEvent("", "");
 

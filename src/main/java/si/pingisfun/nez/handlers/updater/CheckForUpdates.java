@@ -14,8 +14,9 @@ import si.pingisfun.nez.updater.CheckForModUpdate;
 import si.pingisfun.nez.utils.ChatUtil;
 
 public class CheckForUpdates {
-    private boolean updateCheckTriggered = false;
     private static final String LATEST_URL = "https://github.com/PingIsFun/NotEnoughZombies/releases/latest";
+    private boolean updateCheckTriggered = false;
+
     @SubscribeEvent
     public void onClientTickEvent(TickEvent.ClientTickEvent worldLoadEvent) {
         // Check for updates

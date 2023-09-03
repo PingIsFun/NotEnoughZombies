@@ -3,7 +3,6 @@ package si.pingisfun.nez.updater;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-
 import java.util.Objects;
 import java.util.Optional;
 

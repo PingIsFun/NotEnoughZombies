@@ -8,10 +8,7 @@ import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.fml.common.eventhandler.EventBus;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.apache.commons.lang3.text.WordUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import si.pingisfun.nez.NotEnoughZombies;
-import si.pingisfun.nez.config.ModConfig;
 import si.pingisfun.nez.enums.PowerUp;
 import si.pingisfun.nez.events.entity.PowerUpDespawnEvent;
 import si.pingisfun.nez.events.entity.PowerUpSpawnEvent;
@@ -24,17 +21,17 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class LivingUpdateEventHandler {
-    private static final  Set<String> IGNORE_ENTITY_SET = new HashSet<>(Arrays.asList("Armor Stand", "§c§lTarget Practice", "§e§lHOLD SNEAK TO REVIVE!", "§e■■■■■■■■■■■■■■■"));
+    private static final Set<String> IGNORE_ENTITY_SET = new HashSet<>(Arrays.asList("Armor Stand", "§c§lTarget Practice", "§e§lHOLD SNEAK TO REVIVE!", "§e■■■■■■■■■■■■■■■"));
     private static final Pattern REVIVE_SECONDS_PATTERN = Pattern.compile("§c\\d+\\.\\d+s");
-    private static final  int MAX_CACHE_SIZE = 200;
+    private static final int MAX_CACHE_SIZE = 200;
+    private static final String[][] ARMOR_STAND_REGEX_MATRIX = {
+            {"powerUpEntity", "(?:§.)*(SHOPPING SPREE|DOUBLE GOLD|MAX AMMO|INSTA KILL|CARPENTER|BONUS GOLD)"},
+    };
     Map<UUID, String> entityNameCache = new LinkedHashMap<UUID, String>() {
         @Override
         protected boolean removeEldestEntry(final Map.Entry eldest) {
             return size() > MAX_CACHE_SIZE;
         }
-    };
-    private static final String[][] ARMOR_STAND_REGEX_MATRIX = {
-            {"powerUpEntity", "(?:§.)*(SHOPPING SPREE|DOUBLE GOLD|MAX AMMO|INSTA KILL|CARPENTER|BONUS GOLD)"},
     };
 
     @SubscribeEvent

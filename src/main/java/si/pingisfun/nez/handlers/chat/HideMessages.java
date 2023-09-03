@@ -5,7 +5,6 @@ import si.pingisfun.nez.config.ModConfig;
 import si.pingisfun.nez.events.chat.GoldReceiveEvent;
 import si.pingisfun.nez.events.game.OpenAreaEvent;
 import si.pingisfun.nez.events.player.*;
-import si.pingisfun.nez.events.self.ItemPurchaseEvent;
 import si.pingisfun.nez.events.self.WindowRepairEvent;
 
 public class HideMessages {
@@ -85,7 +84,6 @@ public class HideMessages {
 
         event.getChatEvent().setCanceled(true);
     }
-
 
 
 }

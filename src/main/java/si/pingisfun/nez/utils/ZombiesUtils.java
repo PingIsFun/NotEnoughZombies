@@ -2,11 +2,10 @@ package si.pingisfun.nez.utils;
 
 import cc.polyfrost.oneconfig.utils.hypixel.HypixelUtils;
 import cc.polyfrost.oneconfig.utils.hypixel.LocrawUtil;
-import scala.Int;
-import si.pingisfun.nez.NotEnoughZombies;
 import si.pingisfun.nez.enums.ZombiesMap;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Stream;
 
 public class ZombiesUtils {
@@ -17,6 +16,7 @@ public class ZombiesUtils {
             return false;
         }
     }
+
     public static ZombiesMap getMap() {
         if (!isZombiesGame()) {
             return null;
@@ -32,6 +32,7 @@ public class ZombiesUtils {
         String num = line.replace("Round", "").replace(" ", ""); // "22"
         return Integer.parseInt(num);
     }
+
     public static Integer getZombiesLeftFromSidebar() {
         if (!isZombiesGame()) {
             return null;

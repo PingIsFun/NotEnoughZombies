@@ -6,7 +6,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import si.pingisfun.nez.events.game.GameOverEvent;
 import si.pingisfun.nez.events.game.GameStartEvent;
 import si.pingisfun.nez.events.game.NewRoundEvent;
-import si.pingisfun.nez.events.title.*;
+import si.pingisfun.nez.events.title.TitleEvent;
 import si.pingisfun.nez.utils.JavaUtils;
 
 import java.util.List;
@@ -19,7 +19,7 @@ public class TitleEventHandler {
     public void handleTitleEvent(TitleEvent titleEvent) {
         String[][] titleMatrix = {
                 {"newRound", "§cRound (\\d*)§r", "§r"},
-                {"gameOver", "§cGame Over!§r", "§7You made it to Round (\\d*)!§r", },
+                {"gameOver", "§cGame Over!§r", "§7You made it to Round (\\d*)!§r",},
         };
 
         String[] titleMatch = {titleEvent.getTitle(), titleEvent.getSubtitle()};
