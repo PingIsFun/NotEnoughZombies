@@ -1,10 +1,13 @@
 package si.pingisfun.nez.command;
 
+import cc.polyfrost.oneconfig.libs.universal.ChatColor;
+import cc.polyfrost.oneconfig.libs.universal.UChat;
 import cc.polyfrost.oneconfig.utils.commands.annotations.Command;
 import cc.polyfrost.oneconfig.utils.commands.annotations.Main;
 import cc.polyfrost.oneconfig.utils.commands.annotations.SubCommand;
 import si.pingisfun.nez.NotEnoughZombies;
 import si.pingisfun.nez.enums.PowerUp;
+import si.pingisfun.nez.enums.config.ChatOutput;
 import si.pingisfun.nez.utils.ChatUtil;
 import si.pingisfun.nez.utils.ZombiesUtils;
 
@@ -57,5 +60,10 @@ public class NEZCommand {
             return;
         }
         NotEnoughZombies.game.setPowerUpPattern(powerUp, powerUpPatternNumOption.get());
+    }
+
+    @SubCommand
+    private void roll() {
+        ChatUtil.sendLuckyChestRollDataToChat();
     }
 }
