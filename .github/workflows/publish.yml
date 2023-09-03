@@ -4,10 +4,8 @@ name: Publish on new tag
 
 on:
   push:
-    branches:
-      - master
     tags:
-      - 'refs/tags/*'
+      - '*'
 
 
 jobs:
