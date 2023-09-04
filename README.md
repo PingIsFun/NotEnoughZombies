@@ -21,10 +21,15 @@ The next round that the power up will spawn (-1 if the pattern can't be determin
 
 ### Hide Messages
 
-- Hide gold pickup messages
-- Hide window repair messages
-- Hide player knockdown messages
-- Hide player revive messages
+- Hide Gold Received Messages
+- Hide Window Repair Messages
+- Hide Revive Messages
+- Hide Knockdown Messages
+- Hide Target Hit Messages
+- Hide Lucky Chest Messages
+- Hide Open Area Messages
+- Hide Player Leave/Rejoin Messages
+- Hide Power Up Pickup Messages
 
 ---
 
@@ -47,3 +52,7 @@ The next round that the power up will spawn (-1 if the pattern can't be determin
 | Insta Kill     | ik           |
 
 `round` - the round that the power up spawned (-1 to reset)
+
+### Get Lucky Chest Roll Data
+
+    /nez roll
