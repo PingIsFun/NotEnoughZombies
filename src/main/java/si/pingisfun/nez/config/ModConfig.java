@@ -38,6 +38,12 @@ public class ModConfig extends Config {
     )
     public static int powerUpDeSpawnAlert = 1;
 
+    @Dropdown(
+            name = "Next power up round alert",
+            options = {"Off", "Self", "Party", "Chat"}
+    )
+    public static int nextPowerUpRoundAlert = 1;
+
     @Switch(
             name = "Show despawn countdown next to the power up"
     )
