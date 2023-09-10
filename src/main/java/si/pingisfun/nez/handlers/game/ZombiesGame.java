@@ -2,8 +2,10 @@ package si.pingisfun.nez.handlers.game;
 
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import si.pingisfun.nez.NotEnoughZombies;
+import si.pingisfun.nez.config.ModConfig;
 import si.pingisfun.nez.enums.PowerUp;
 import si.pingisfun.nez.enums.ZombiesMap;
+import si.pingisfun.nez.enums.config.ChatOutput;
 import si.pingisfun.nez.events.entity.PowerUpSpawnEvent;
 import si.pingisfun.nez.events.game.GameOverEvent;
 import si.pingisfun.nez.events.game.GameStartEvent;
@@ -40,10 +42,31 @@ public class ZombiesGame {
             this.map = ZombiesUtils.getMap();
         }
         this.currentRound = newRoundEvent.getRound();
-        int ss = getNextPowerUpRound(PowerUp.SHOPPING_SPREE).orElse(-1);
-        int ik = getNextPowerUpRound(PowerUp.INSTA_KILL).orElse(-1);
-        int mx = getNextPowerUpRound(PowerUp.MAX_AMMO).orElse(-1);
-        ChatUtil.message("New Round: " + this.currentRound + ". SS: " + ss + " IK: " + ik + " MX: " + mx);
+        StringBuilder powerUpString = new StringBuilder();
+        Set<PowerUp> allSavedPowerUps = getAllSavedPowerUps();
+        if (allSavedPowerUps.size() == 0) {
+            ChatUtil.message("No power up data");
+            return;
+        }
+        int c = 0;
+        for (PowerUp powerUp: allSavedPowerUps) {
+            int nextRoundWithPowerUp = getNextPowerUpRound(powerUp).orElse(-1);
+            powerUpString
+                    .append(powerUp.getShortName())
+                    .append(": ")
+                    .append(nextRoundWithPowerUp);
+            if (c >= allSavedPowerUps.size() - 1) {
+                break;
+            }
+
+            powerUpString.append(", ");
+
+            c++;
+        }
+
+
+
+        ChatUtil.message("Next power up rounds; " + powerUpString, ChatOutput.getOutputUpByNumber(ModConfig.nextPowerUpRoundAlert));
     }
 
     @SubscribeEvent
@@ -136,6 +159,10 @@ public class ZombiesGame {
 
         return Optional.of(powerUpPattern);
 
+    }
+
+    private Set<PowerUp> getAllSavedPowerUps() {
+        return powerUpPatternMap.keySet();
     }
 
     private boolean powerUpPatternExists(PowerUp powerUp) {
