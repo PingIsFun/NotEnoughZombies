@@ -6,36 +6,44 @@ import si.pingisfun.nez.data.PowerUpPatternData;
 import java.util.*;
 
 public enum PowerUp {
-    INSTA_KILL("Insta Kill",
+    INSTA_KILL("Insta Kill", "IK",
             PowerUpPatternData.AlienArcadium.INSTA_KILL,
             PowerUpPatternData.BadBlood.INSTA_KILL,
             PowerUpPatternData.DeadEnd.INSTA_KILL
     ),
-    MAX_AMMO("Max Ammo",
+    MAX_AMMO("Max Ammo", "MX",
             PowerUpPatternData.AlienArcadium.MAX_AMMO,
             PowerUpPatternData.BadBlood.MAX_AMMO,
             PowerUpPatternData.DeadEnd.MAX_AMMO),
-    SHOPPING_SPREE("Shopping Spree",
+    SHOPPING_SPREE("Shopping Spree", "SS",
             PowerUpPatternData.AlienArcadium.SHOPPING_SPREE,
             null,
             null),
-    DOUBLE_GOLD("Double Gold"),
-    CARPENTER("Carpenter"),
-    BONUS_GOLD("Bonus Gold");
+    DOUBLE_GOLD("Double Gold", "DG"),
+    CARPENTER("Carpenter", "CA"),
+    BONUS_GOLD("Bonus Gold", "BG");
 
     private final String name;
-    private EnumMap<ZombiesMap, Optional<List<SortedSet<Integer>>>> patternMap = new EnumMap<>(ZombiesMap.class);
 
-    PowerUp(String name, List<SortedSet<Integer>> AApattern, List<SortedSet<Integer>> BBpattern, List<SortedSet<Integer>> DEpattern) {
+    private final String shortName;
+
+    PowerUp(String name, String shortName, List<SortedSet<Integer>> AApattern, List<SortedSet<Integer>> BBpattern, List<SortedSet<Integer>> DEpattern) {
         this.name = name;
+        this.shortName = shortName;
         this.patternMap = new EnumMap<>(ZombiesMap.class);
         patternMap.put(ZombiesMap.ALIEN_ARCADIUM, Optional.ofNullable(AApattern));
         patternMap.put(ZombiesMap.BAD_BLOOD, Optional.ofNullable(BBpattern));
         patternMap.put(ZombiesMap.DEAD_END, Optional.ofNullable(DEpattern));
     }
+    private EnumMap<ZombiesMap, Optional<List<SortedSet<Integer>>>> patternMap = new EnumMap<>(ZombiesMap.class);
 
-    PowerUp(String name) {
+    PowerUp(String name, String shortName) {
         this.name = name;
+        this.shortName = shortName;
+    }
+
+    public String getShortName() {
+        return shortName;
     }
 
     public static Optional<PowerUp> getPowerUpByName(String name) {
