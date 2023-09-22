@@ -2,6 +2,7 @@ package si.pingisfun.nez.utils;
 
 import cc.polyfrost.oneconfig.utils.hypixel.HypixelUtils;
 import cc.polyfrost.oneconfig.utils.hypixel.LocrawUtil;
+import si.pingisfun.nez.NotEnoughZombies;
 import si.pingisfun.nez.enums.ZombiesMap;
 
 import java.util.ArrayList;
@@ -15,6 +16,10 @@ public class ZombiesUtils {
         } catch (NullPointerException ignored) {
             return false;
         }
+    }
+
+    public static boolean isEnabled() {
+        return isZombiesGame() && NotEnoughZombies.config.enabled;
     }
 
     public static ZombiesMap getMap() {
