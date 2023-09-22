@@ -36,6 +36,10 @@ public class LivingUpdateEventHandler {
 
     @SubscribeEvent
     public void onLivingUpdateEvent(LivingEvent.LivingUpdateEvent livingUpdateEvent) {
+        if (!ZombiesUtils.isEnabled()) {
+            return;
+        }
+
         if (!ZombiesUtils.isZombiesGame()) {
             return;
         }

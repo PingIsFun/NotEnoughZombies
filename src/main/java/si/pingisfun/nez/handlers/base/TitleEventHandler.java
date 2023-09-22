@@ -8,6 +8,7 @@ import si.pingisfun.nez.events.game.GameStartEvent;
 import si.pingisfun.nez.events.game.NewRoundEvent;
 import si.pingisfun.nez.events.title.TitleEvent;
 import si.pingisfun.nez.utils.JavaUtils;
+import si.pingisfun.nez.utils.ZombiesUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -17,6 +18,10 @@ import java.util.regex.Matcher;
 public class TitleEventHandler {
     @SubscribeEvent
     public void handleTitleEvent(TitleEvent titleEvent) {
+        if (!ZombiesUtils.isEnabled()) {
+            return;
+        }
+
         String[][] titleMatrix = {
                 {"newRound", "§cRound (\\d*)§r", "§r"},
                 {"gameOver", "§cGame Over!§r", "§7You made it to Round (\\d*)!§r",},

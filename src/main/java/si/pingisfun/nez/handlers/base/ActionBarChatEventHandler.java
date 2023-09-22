@@ -46,7 +46,7 @@ public class ActionBarChatEventHandler {
 
     @SubscribeEvent
     public void handleChatEvent(ClientChatReceivedEvent event) {
-        if (!NotEnoughZombies.config.enabled || !ZombiesUtils.isZombiesGame()) {
+        if (!ZombiesUtils.isEnabled()) {
             return;
         }
 
