@@ -33,6 +33,7 @@ public class NotEnoughZombies {
     public static final String NAME = "@NAME@";
     public static final String VERSION = "@VER@";
     public static final Logger LOGGER = LogManager.getLogger(MODID);
+    public static final Logger DEBUG_LOGGER = LogManager.getLogger(MODID+"-DEBUG");
     public static final Minecraft minecraft = Minecraft.getMinecraft();
     // Sets the variables from `gradle.properties`. See the `blossom` config in `build.gradle.kts`.
     @Mod.Instance(MODID)
