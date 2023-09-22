@@ -5,10 +5,12 @@ import cc.polyfrost.oneconfig.libs.universal.UChat;
 import cc.polyfrost.oneconfig.utils.commands.annotations.Command;
 import cc.polyfrost.oneconfig.utils.commands.annotations.Main;
 import cc.polyfrost.oneconfig.utils.commands.annotations.SubCommand;
+import cc.polyfrost.oneconfig.utils.commands.annotations.SubCommandGroup;
 import si.pingisfun.nez.NotEnoughZombies;
 import si.pingisfun.nez.enums.PowerUp;
 import si.pingisfun.nez.enums.config.ChatOutput;
 import si.pingisfun.nez.utils.ChatUtil;
+import si.pingisfun.nez.utils.DevUtils;
 import si.pingisfun.nez.utils.ZombiesUtils;
 
 import java.util.HashMap;
@@ -65,5 +67,25 @@ public class NEZCommand {
     @SubCommand
     private void roll() {
         ChatUtil.sendLuckyChestRollDataToChat();
+    }
+
+    @SubCommandGroup("debug")
+    private class Debug {
+        @SubCommand
+        private void is_enabled() {
+            ChatUtil.message("Mod Enabled: " + ZombiesUtils.isEnabled(), ChatOutput.SELF);
+            NotEnoughZombies.DEBUG_LOGGER.info("Mod Enabled: " + ZombiesUtils.isEnabled());
+        }
+        @SubCommand
+        private void game() {
+            ChatUtil.message("Game data: " + NotEnoughZombies.game.toString(), ChatOutput.SELF);
+            NotEnoughZombies.DEBUG_LOGGER.info("Game data: " + NotEnoughZombies.game.toString());
+        }
+
+        @SubCommand
+        private void scoreaboard() {
+            DevUtils.debugScoreboard();
+        }
+
     }
 }
