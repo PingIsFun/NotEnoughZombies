@@ -200,4 +200,15 @@ public class ZombiesGame {
     public Map<String, Map<String, Integer>> getLuckyChestRollData() {
         return luckyChestRollData;
     }
+
+    @Override
+    public String toString() {
+        return "ZombiesGame{" +
+                "luckyChestRollData=" + luckyChestRollData +
+                ", map=" + map +
+                ", currentRound=" + currentRound +
+                ", powerUpPatternMap=" + powerUpPatternMap +
+                ", isInGame=" + isInGame +
+                '}';
+    }
 }
