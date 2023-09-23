@@ -40,9 +40,6 @@ public class LivingUpdateEventHandler {
             return;
         }
 
-        if (!ZombiesUtils.isZombiesGame()) {
-            return;
-        }
         EntityLivingBase entity = livingUpdateEvent.entityLiving;
         if (!(entity instanceof EntityArmorStand || entity instanceof EntityZombie)) {
             return;
