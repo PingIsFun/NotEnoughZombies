@@ -9,7 +9,6 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import si.pingisfun.nez.command.NEZCommand;
-import si.pingisfun.nez.command.TestCommand;
 import si.pingisfun.nez.config.ModConfig;
 import si.pingisfun.nez.handlers.alert.PowerUpAlert;
 import si.pingisfun.nez.handlers.base.ActionBarChatEventHandler;
