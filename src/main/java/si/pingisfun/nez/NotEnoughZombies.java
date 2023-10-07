@@ -16,6 +16,7 @@ import si.pingisfun.nez.handlers.base.EntityJoinWorldHandler;
 import si.pingisfun.nez.handlers.base.LivingUpdateEventHandler;
 import si.pingisfun.nez.handlers.base.TitleEventHandler;
 import si.pingisfun.nez.handlers.chat.HideMessages;
+import si.pingisfun.nez.handlers.datacollector.DCHandleLivingEvent;
 import si.pingisfun.nez.handlers.entity.PowerUpCountdown;
 import si.pingisfun.nez.handlers.game.ZombiesGame;
 import si.pingisfun.nez.handlers.updater.CheckForUpdates;
@@ -69,6 +70,9 @@ public class NotEnoughZombies {
 
         // Update Checker
         MinecraftForge.EVENT_BUS.register(new CheckForUpdates());
+
+        // Data Collector
+        MinecraftForge.EVENT_BUS.register(new DCHandleLivingEvent());
 
         // Debug
 //        MinecraftForge.EVENT_BUS.register(new TestHandler());
