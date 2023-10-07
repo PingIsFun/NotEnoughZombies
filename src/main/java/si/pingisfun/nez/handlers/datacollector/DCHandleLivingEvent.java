@@ -27,8 +27,8 @@ import static si.pingisfun.nez.NotEnoughZombies.MODID;
 
 
 public class DCHandleLivingEvent {
-    public static final Logger DATA_LOGGER = LogManager.getLogger(MODID+"-DATA_COLLECTOR");
-    public static final Logger INFO_LOGGER = LogManager.getLogger(MODID+"-DATA_COLLECTOR");
+    public static final Logger DATA_LOGGER = LogManager.getLogger(MODID+"-DATA_COLLECTOR_DATA");
+    public static final Logger INFO_LOGGER = LogManager.getLogger(MODID+"-DATA_COLLECTOR_INFO");
 
     HashMap<UUID, Long> checkedUUIDs = new HashMap<>();
 
@@ -131,10 +131,10 @@ public class DCHandleLivingEvent {
         infoMap.put("entity", String.valueOf(entity));
         Gson gson = new Gson();
         String json = gson.toJson(infoMap);
-        DATA_LOGGER.info(json);
+        DATA_LOGGER.info("[DATA_COLLECTOR DATA] {}", json);
     }
     @SubscribeEvent
     public void onNewRound(NewRoundEvent newRoundEvent) {
-        INFO_LOGGER.info("New Round: {}", newRoundEvent.getRound());
+        INFO_LOGGER.info("[DATA_COLLECTOR_INFO] New Round: {}", newRoundEvent.getRound());
     }
 }
