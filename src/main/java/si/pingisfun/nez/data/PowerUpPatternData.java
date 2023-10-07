@@ -1,10 +1,9 @@
 package si.pingisfun.nez.data;
 
-
 import java.util.*;
 
-public class PowerUpPatternData {
-    public static class AlienArcadium {
+public final class PowerUpPatternData {
+    public static final class AlienArcadium {
         public static final List<SortedSet<Integer>> INSTA_KILL = Arrays.asList(
                 new TreeSet<>(Arrays.asList(2, 5, 8, 11, 14, 17, 20, 23)), Collections.emptySortedSet(),
                 new TreeSet<>(Arrays.asList(3, 6, 9, 12, 15, 18, 21)), Collections.emptySortedSet()
@@ -21,7 +20,7 @@ public class PowerUpPatternData {
         );
     }
 
-    public static class DeadEnd {
+    public static final class DeadEnd {
         public static final List<SortedSet<Integer>> INSTA_KILL = Arrays.asList(
                 new TreeSet<>(Arrays.asList(2, 8, 11, 14, 17, 23)), Collections.emptySortedSet(),
                 new TreeSet<>(Arrays.asList(3, 6, 9, 12, 18, 21, 24)), Collections.emptySortedSet()
@@ -33,7 +32,7 @@ public class PowerUpPatternData {
 
     }
 
-    public static class BadBlood {
+    public static final class BadBlood {
         public static final List<SortedSet<Integer>> INSTA_KILL = Arrays.asList(
                 new TreeSet<>(Arrays.asList(2, 5, 8, 11, 14, 17, 23)), Collections.emptySortedSet(),
                 new TreeSet<>(Arrays.asList(3, 6, 9, 12, 18, 21, 24)), Collections.emptySortedSet()
@@ -45,5 +44,4 @@ public class PowerUpPatternData {
         );
 
     }
-
 }
