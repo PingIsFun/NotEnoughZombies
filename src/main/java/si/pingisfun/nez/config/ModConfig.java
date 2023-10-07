@@ -3,6 +3,7 @@ package si.pingisfun.nez.config;
 import cc.polyfrost.oneconfig.config.Config;
 import cc.polyfrost.oneconfig.config.annotations.Dropdown;
 import cc.polyfrost.oneconfig.config.annotations.DualOption;
+import cc.polyfrost.oneconfig.config.annotations.Number;
 import cc.polyfrost.oneconfig.config.annotations.Switch;
 import cc.polyfrost.oneconfig.config.data.Mod;
 import cc.polyfrost.oneconfig.config.data.ModType;
@@ -117,6 +118,45 @@ public class ModConfig extends Config {
             subcategory = "Hide Messages"
     )
     public static boolean hidePowerUpPickupMessages = false;
+
+    /*
+    Data collector
+     */
+    @Switch(
+            name = "Enable data collector",
+            category = "Data collector"
+    )
+    public static boolean dataCollector = false;
+    @Number(
+            name = "Recheck Delay ", min = 0, max = 60, category = "Data collector")
+    public static int dcRecheckDelay = 10;
+
+
+    // Hide Entities subcategory
+    @Switch(
+            name = "Hide Armor Stands",
+            category = "Data collector",
+            subcategory = "Hide Entities"
+    )
+    public static boolean hideArmorStands = false;
+    @Switch(
+            name = "Hide Villagers",
+            category = "Data collector",
+            subcategory = "Hide Entities"
+    )
+    public static boolean hideVillagers = false;
+    @Switch(
+            name = "Hide Self Player",
+            category = "Data collector",
+            subcategory = "Hide Entities"
+    )
+    public static boolean hideSelfPlayer = false;
+    @Switch(
+            name = "Hide Other Players",
+            category = "Data collector",
+            subcategory = "Hide Entities"
+    )
+    public static boolean hideOtherPlayers = false;
 
 
     public ModConfig() {
