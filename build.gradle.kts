@@ -96,7 +96,7 @@ repositories {
 // Configures the libraries/dependencies for your mod.
 dependencies {
     // Adds the OneConfig library, so we can develop with it.
-    modCompileOnly("cc.polyfrost:oneconfig-$platform:0.2.0-alpha+")
+    modCompileOnly("cc.polyfrost:oneconfig-$platform:0.2.2-alpha191")
     modRuntimeOnly("me.djtheredstoner:DevAuth-forge-legacy:1.1.0")
 
     // If we are building for legacy forge, includes the launch wrapper with `shade` as we configured earlier.
