@@ -3,11 +3,13 @@ package si.pingisfun.nez.config;
 import cc.polyfrost.oneconfig.config.Config;
 import cc.polyfrost.oneconfig.config.annotations.Dropdown;
 import cc.polyfrost.oneconfig.config.annotations.DualOption;
+import cc.polyfrost.oneconfig.config.annotations.HUD;
 import cc.polyfrost.oneconfig.config.annotations.Switch;
 import cc.polyfrost.oneconfig.config.data.Mod;
 import cc.polyfrost.oneconfig.config.data.ModType;
 import cc.polyfrost.oneconfig.config.data.OptionSize;
 import si.pingisfun.nez.NotEnoughZombies;
+import si.pingisfun.nez.hud.PowerUpHud;
 
 /**
  * The main Config entrypoint that extends the Config type and inits the config options.
@@ -48,6 +50,12 @@ public class ModConfig extends Config {
             name = "Show despawn countdown next to the power up"
     )
     public static boolean powerupCountdown = false;
+
+    @HUD(
+            name = "Power up timer",
+            category = "HUD"
+    )
+    public PowerUpHud hud = new PowerUpHud();
 
 
     /*
