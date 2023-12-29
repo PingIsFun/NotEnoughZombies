@@ -57,116 +57,115 @@ public class ActionBarChatEventHandler {
                 return;
             }
             oldActionBarHash = eventHash;
+            return;
+        }
+        // Chat
+        Map.Entry<String, List<Matcher>> matrixRes = JavaUtils.matchRegexMatrix(CHAT_REGEX_MATRIX, event.message.getUnformattedText());
+        if (Objects.isNull(matrixRes)) {
+            return;
+        }
 
+        String type = matrixRes.getKey();
+        Matcher chatMatcher = matrixRes.getValue().get(0);
 
-        } else {
-            // Chat
-            Map.Entry<String, List<Matcher>> matrixRes = JavaUtils.matchRegexMatrix(CHAT_REGEX_MATRIX, event.message.getUnformattedText());
-            if (Objects.isNull(matrixRes)) {
-                return;
+        EventBus bus = MinecraftForge.EVENT_BUS;
+        switch (type) {
+            case "knockedDown": {
+                String player = chatMatcher.group(1);
+                String killer = chatMatcher.group(2);
+                String location = chatMatcher.group(3);
+                int timeLeft = Integer.parseInt(chatMatcher.group(4));
+                boolean self = chatMatcher.group(5).equals("get revived");
+                bus.post(new PlayerKnockdownEvent(event, player, killer, location, timeLeft, self));
+                break;
             }
-
-            String type = matrixRes.getKey();
-            Matcher chatMatcher = matrixRes.getValue().get(0);
-
-            EventBus bus = MinecraftForge.EVENT_BUS;
-            switch (type) {
-                case "knockedDown": {
-                    String player = chatMatcher.group(1);
-                    String killer = chatMatcher.group(2);
-                    String location = chatMatcher.group(3);
-                    int timeLeft = Integer.parseInt(chatMatcher.group(4));
-                    boolean self = chatMatcher.group(5).equals("get revived");
-                    bus.post(new PlayerKnockdownEvent(event, player, killer, location, timeLeft, self));
-                    break;
-                }
-                case "revived": {
-                    String reviver = chatMatcher.group(1);
-                    String revivedPlayer = chatMatcher.group(2);
-                    bus.post(new ReviveEvent(event, reviver, revivedPlayer));
-                    break;
-                }
-                case "powerUp": {
-                    String player = chatMatcher.group(1);
-                    Optional<PowerUp> powerUpOption = PowerUp.getPowerUpByName(chatMatcher.group(2));
-                    int duration;
-                    String durationRaw = chatMatcher.group(3);
-                    if (!powerUpOption.isPresent()) {
-                        NotEnoughZombies.LOGGER.warn("Power up not found for player={}, powerUp={}, durationRaw={}", player, chatMatcher.group(2), durationRaw);
-                        return;
-                    }
-
-                    if (Objects.isNull(durationRaw)) {
-                        duration = -1;
-
-                    } else {
-                        duration = Integer.parseInt(durationRaw);
-                    }
-
-                    bus.post(new PowerUpPickupEvent(event, player, powerUpOption.get(), duration));
-                    break;
-                }
-                case "foundInLChest": {
-                    String player = chatMatcher.group(1);
-                    String item = chatMatcher.group(2);
-                    bus.post(new LuckyChestEvent(event, player, item));
-                    break;
-                }
-                case "selfFoundInLChest": {
-                    String player = NotEnoughZombies.minecraft.thePlayer.getName();
-                    String item = chatMatcher.group(1);
-                    bus.post(new LuckyChestEvent(event, player, item));
-                    break;
-                }
-                case "playerLeft": {
-                    String player = chatMatcher.group(1);
-                    bus.post(new PlayerConnectionStatusEvent(event, player, PlayerConnectionStatus.LEFT));
-                    break;
-                }
-                case "playerRejoined": {
-                    String player = chatMatcher.group(1);
-                    bus.post(new PlayerConnectionStatusEvent(event, player, PlayerConnectionStatus.REJOINED));
-                    break;
-                }
-                case "openArea": {
-                    String player = chatMatcher.group(1);
-                    String location = chatMatcher.group(2);
-                    bus.post(new OpenAreaEvent(event, player, location));
-                    break;
-                }
-                case "itemPurchase": {
-                    String item = chatMatcher.group(1);
-                    bus.post(new ItemPurchaseEvent(event, item));
-                    break;
-                }
-                case "hitTarget": {
-                    String player = chatMatcher.group(1);
-                    bus.post(new HitTargetEvent(event, player));
-                    break;
-                }
-                case "receiveGold": {
-                    int amount = Integer.parseInt(chatMatcher.group(1));
-                    bus.post(new GoldReceiveEvent(event, amount));
-                    break;
-                }
-                case "startRepairing": {
-                    bus.post(new WindowRepairEvent(event, WindowRepair.START));
-                    break;
-                }
-                case "stopRepairing": {
-                    bus.post(new WindowRepairEvent(event, WindowRepair.STOP));
-                    break;
-                }
-                case "finishRepairing": {
-                    bus.post(new WindowRepairEvent(event, WindowRepair.FINISH));
-                    break;
-                }
-                case "enemyNearby": {
-                    bus.post(new WindowRepairEvent(event, WindowRepair.ENEMY_NEARBY));
-                    break;
-                }
-
+            case "revived": {
+                String reviver = chatMatcher.group(1);
+                String revivedPlayer = chatMatcher.group(2);
+                bus.post(new ReviveEvent(event, reviver, revivedPlayer));
+                break;
             }
+            case "powerUp": {
+                String player = chatMatcher.group(1);
+                Optional<PowerUp> powerUpOption = PowerUp.getPowerUpByName(chatMatcher.group(2));
+                int duration;
+                String durationRaw = chatMatcher.group(3);
+                if (!powerUpOption.isPresent()) {
+                    NotEnoughZombies.LOGGER.warn("Power up not found for player={}, powerUp={}, durationRaw={}", player, chatMatcher.group(2), durationRaw);
+                    return;
+                }
+
+                if (Objects.isNull(durationRaw)) {
+                    duration = -1;
+
+                } else {
+                    duration = Integer.parseInt(durationRaw);
+                }
+
+                bus.post(new PowerUpPickupEvent(event, player, powerUpOption.get(), duration));
+                break;
+            }
+            case "foundInLChest": {
+                String player = chatMatcher.group(1);
+                String item = chatMatcher.group(2);
+                bus.post(new LuckyChestEvent(event, player, item));
+                break;
+            }
+            case "selfFoundInLChest": {
+                String player = NotEnoughZombies.minecraft.thePlayer.getName();
+                String item = chatMatcher.group(1);
+                bus.post(new LuckyChestEvent(event, player, item));
+                break;
+            }
+            case "playerLeft": {
+                String player = chatMatcher.group(1);
+                bus.post(new PlayerConnectionStatusEvent(event, player, PlayerConnectionStatus.LEFT));
+                break;
+            }
+            case "playerRejoined": {
+                String player = chatMatcher.group(1);
+                bus.post(new PlayerConnectionStatusEvent(event, player, PlayerConnectionStatus.REJOINED));
+                break;
+            }
+            case "openArea": {
+                String player = chatMatcher.group(1);
+                String location = chatMatcher.group(2);
+                bus.post(new OpenAreaEvent(event, player, location));
+                break;
+            }
+            case "itemPurchase": {
+                String item = chatMatcher.group(1);
+                bus.post(new ItemPurchaseEvent(event, item));
+                break;
+            }
+            case "hitTarget": {
+                String player = chatMatcher.group(1);
+                bus.post(new HitTargetEvent(event, player));
+                break;
+            }
+            case "receiveGold": {
+                int amount = Integer.parseInt(chatMatcher.group(1));
+                bus.post(new GoldReceiveEvent(event, amount));
+                break;
+            }
+            case "startRepairing": {
+                bus.post(new WindowRepairEvent(event, WindowRepair.START));
+                break;
+            }
+            case "stopRepairing": {
+                bus.post(new WindowRepairEvent(event, WindowRepair.STOP));
+                break;
+            }
+            case "finishRepairing": {
+                bus.post(new WindowRepairEvent(event, WindowRepair.FINISH));
+                break;
+            }
+            case "enemyNearby": {
+                bus.post(new WindowRepairEvent(event, WindowRepair.ENEMY_NEARBY));
+                break;
+            }
+            default:
+                break;
         }
     }
 }
