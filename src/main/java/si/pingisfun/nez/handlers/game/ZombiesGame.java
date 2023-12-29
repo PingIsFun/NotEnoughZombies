@@ -24,6 +24,9 @@ public class ZombiesGame {
     private Map<PowerUp, Integer> powerUpPatternMap = new HashMap<>(3);
     private boolean isInGame;
 
+    private long gameStartTimestampMs;
+    private long roundStartTimestampMs;
+
     public ZombiesGame() {
         this.isInGame = false;
     }
@@ -38,10 +41,15 @@ public class ZombiesGame {
 
     @SubscribeEvent
     public void onNewRound(NewRoundEvent newRoundEvent) {
+        this.currentRound = newRoundEvent.getRound();
+        if (currentRound == 1) {
+            this.gameStartTimestampMs = System.currentTimeMillis();
+        }
+        this.roundStartTimestampMs = System.currentTimeMillis();
+
         if (Objects.isNull(map)) {
             this.map = ZombiesUtils.getMap();
         }
-        this.currentRound = newRoundEvent.getRound();
         StringBuilder powerUpString = new StringBuilder();
         Set<PowerUp> allSavedPowerUps = getAllSavedPowerUps();
         if (allSavedPowerUps.size() == 0) {
@@ -135,6 +143,8 @@ public class ZombiesGame {
         currentRound = -1;
         powerUpPatternMap = new HashMap<>(3);
         luckyChestRollData = new HashMap<>(4);
+        gameStartTimestampMs = -1L;
+        roundStartTimestampMs = -1L;
     }
 
     public Optional<Integer> getNextPowerUpRound(PowerUp powerUp) {
@@ -144,6 +154,14 @@ public class ZombiesGame {
         }
 
         return powerUp.getNextPowerUpRound(this.map, currentRound, patternNum.get());
+    }
+
+    public long getGameStartTimestampMs() {
+        return gameStartTimestampMs;
+    }
+
+    public long getRoundStartTimestampMs() {
+        return roundStartTimestampMs;
     }
 
     private Optional<Integer> getPatternNum(PowerUp powerUp) {
@@ -208,6 +226,8 @@ public class ZombiesGame {
                 ", currentRound=" + currentRound +
                 ", powerUpPatternMap=" + powerUpPatternMap +
                 ", isInGame=" + isInGame +
+                ", gameStartTimestampMs=" + gameStartTimestampMs +
+                ", roundStartTimestampMs=" + roundStartTimestampMs +
                 '}';
     }
 }
