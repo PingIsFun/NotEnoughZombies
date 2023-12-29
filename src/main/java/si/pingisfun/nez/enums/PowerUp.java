@@ -1,45 +1,48 @@
 package si.pingisfun.nez.enums;
 
 
+import cc.polyfrost.oneconfig.libs.universal.ChatColor;
 import si.pingisfun.nez.data.PowerUpPatternData;
 
 import java.util.*;
 
 public enum PowerUp {
-    INSTA_KILL("Insta Kill", "IK",
+    INSTA_KILL("Insta Kill", "IK", ChatColor.RED,
             PowerUpPatternData.AlienArcadium.INSTA_KILL,
             PowerUpPatternData.BadBlood.INSTA_KILL,
             PowerUpPatternData.DeadEnd.INSTA_KILL
     ),
-    MAX_AMMO("Max Ammo", "MX",
+    MAX_AMMO("Max Ammo", "MX", ChatColor.BLUE,
             PowerUpPatternData.AlienArcadium.MAX_AMMO,
             PowerUpPatternData.BadBlood.MAX_AMMO,
             PowerUpPatternData.DeadEnd.MAX_AMMO),
-    SHOPPING_SPREE("Shopping Spree", "SS",
+    SHOPPING_SPREE("Shopping Spree", "SS", ChatColor.DARK_PURPLE,
             PowerUpPatternData.AlienArcadium.SHOPPING_SPREE,
             null,
             null),
-    DOUBLE_GOLD("Double Gold", "DG"),
-    CARPENTER("Carpenter", "CA"),
-    BONUS_GOLD("Bonus Gold", "BG");
+    DOUBLE_GOLD("Double Gold", "DG", ChatColor.GOLD),
+    CARPENTER("Carpenter", "CA", ChatColor.BLUE),
+    BONUS_GOLD("Bonus Gold", "BG", ChatColor.GOLD);
 
     private final String name;
 
     private final String shortName;
+    private final ChatColor color;
     private EnumMap<ZombiesMap, Optional<List<SortedSet<Integer>>>> patternMap = new EnumMap<>(ZombiesMap.class);
-
-    PowerUp(String name, String shortName, List<SortedSet<Integer>> AApattern, List<SortedSet<Integer>> BBpattern, List<SortedSet<Integer>> DEpattern) {
+    PowerUp(String name, String shortName, ChatColor color, List<SortedSet<Integer>> AApattern, List<SortedSet<Integer>> BBpattern, List<SortedSet<Integer>> DEpattern) {
         this.name = name;
         this.shortName = shortName;
+        this.color = color;
         this.patternMap = new EnumMap<>(ZombiesMap.class);
         patternMap.put(ZombiesMap.ALIEN_ARCADIUM, Optional.ofNullable(AApattern));
         patternMap.put(ZombiesMap.BAD_BLOOD, Optional.ofNullable(BBpattern));
         patternMap.put(ZombiesMap.DEAD_END, Optional.ofNullable(DEpattern));
     }
 
-    PowerUp(String name, String shortName) {
+    PowerUp(String name, String shortName, ChatColor color) {
         this.name = name;
         this.shortName = shortName;
+        this.color = color;
     }
 
     public static Optional<PowerUp> getPowerUpByName(String name) {
@@ -58,6 +61,10 @@ public enum PowerUp {
             }
         }
         return Optional.empty();
+    }
+
+    public ChatColor getColor() {
+        return color;
     }
 
     public String getShortName() {
