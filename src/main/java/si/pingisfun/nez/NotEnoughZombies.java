@@ -9,6 +9,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.EventBus;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import si.pingisfun.nez.command.DevelopmentCommand;
 import si.pingisfun.nez.command.NEZCommand;
 import si.pingisfun.nez.config.ModConfig;
 import si.pingisfun.nez.handlers.alert.PowerUpAlert;
@@ -66,5 +67,21 @@ public class NotEnoughZombies {
         bus.register(new PowerUpCountdown());
         // Update Checker
         bus.register(new CheckForUpdates());
+        // HUD
+        bus.register(config.hud);
+
+        // Dev command
+        if (isDev()) {
+            CommandManager.INSTANCE.registerCommand(new DevelopmentCommand());
+        }
+
+
+    }
+
+    private boolean isDev() {
+        StackTraceElement[] stack = Thread.currentThread().getStackTrace();
+        StackTraceElement main = stack[stack.length - 1];
+        String mainClass = main.getClassName();
+        return mainClass.equals("net.fabricmc.devlaunchinjector.Main");
     }
 }
