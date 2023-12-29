@@ -51,6 +51,15 @@ public enum PowerUp {
         return Optional.empty();
     }
 
+    public static Optional<PowerUp> getPowerUpByShortName(String shortName) {
+        for (PowerUp powerUp : PowerUp.values()) {
+            if (powerUp.shortName.equalsIgnoreCase(shortName)) {
+                return Optional.of(powerUp);
+            }
+        }
+        return Optional.empty();
+    }
+
     public String getShortName() {
         return shortName;
     }
