@@ -6,6 +6,7 @@ import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import si.pingisfun.nez.config.ModConfig;
 import si.pingisfun.nez.events.entity.PowerUpSpawnEvent;
+import si.pingisfun.nez.utils.JavaUtils;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -23,18 +24,10 @@ public class PowerUpCountdown {
         }
     };
 
-    private static String diffToString(long diff) {
-        double seconds = diff / 1000.0; // Convert milliseconds to seconds
-        int secondsInt = (int) (seconds * 10); // Multiply by 10 to keep one decimal place
-        double formattedSeconds = (double) secondsInt / 10; // Divide by 10 to get back to one decimal place
-
-        return formattedSeconds + "s";
-    }
-
     private static String nameGenerator(EntityLivingBase entity, long diff) {
         String newName;
 
-        String suffix = NAME_SEPARATOR + " - " + diffToString(diff);
+        String suffix = NAME_SEPARATOR + " - " + JavaUtils.msToSeconds1DecString(diff) + "s";
         String name = entity.getName();
 
         if (name.contains(NAME_SEPARATOR)) {

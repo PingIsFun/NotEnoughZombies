@@ -69,5 +69,13 @@ public class JavaUtils {
     public static Map.Entry<String, List<Matcher>> matchRegexMatrix(String[][] regexMatrix, String matchStrings) {
         return matchRegexMatrix(regexMatrix, new String[]{matchStrings});
     }
+
+    public static String msToSeconds1DecString(long timeMilis) {
+        double seconds = timeMilis / 1000.0; // Convert milliseconds to seconds
+        int secondsInt = (int) (seconds * 10); // Multiply by 10 to keep one decimal place
+        double formattedSeconds = (double) secondsInt / 10; // Divide by 10 to get back to one decimal place
+
+        return String.valueOf(formattedSeconds);
+    }
 }
 
