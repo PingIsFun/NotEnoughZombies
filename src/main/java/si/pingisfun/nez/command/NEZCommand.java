@@ -32,7 +32,6 @@ public class NEZCommand {
         powerupCommandMap.put("ik", PowerUp.INSTA_KILL);
         powerupCommandMap.put("mx", PowerUp.MAX_AMMO);
         powerupCommandMap.put("ss", PowerUp.SHOPPING_SPREE);
-
     }
 
     @Main
