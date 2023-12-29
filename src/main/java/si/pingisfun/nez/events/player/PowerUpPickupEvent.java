@@ -20,7 +20,7 @@ public class PowerUpPickupEvent extends ChatEvent {
         return pickupPlayer;
     }
 
-    public int getDuration() {
+    public int getDurationSeconds() {
         return duration;
     }
 
