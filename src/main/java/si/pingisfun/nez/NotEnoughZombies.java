@@ -6,6 +6,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.EventBus;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import si.pingisfun.nez.command.NEZCommand;
@@ -47,21 +48,23 @@ public class NotEnoughZombies {
         game = new ZombiesGame();
         CommandManager.INSTANCE.registerCommand(new NEZCommand());
 
+        EventBus bus = MinecraftForge.EVENT_BUS;
+
         // Base Handlers
-        MinecraftForge.EVENT_BUS.register(new TitleEventHandler());
-        MinecraftForge.EVENT_BUS.register(new ActionBarChatEventHandler());
-        MinecraftForge.EVENT_BUS.register(new LivingUpdateEventHandler());
-        MinecraftForge.EVENT_BUS.register(new EntityJoinWorldHandler());
+        bus.register(new TitleEventHandler());
+        bus.register(new ActionBarChatEventHandler());
+        bus.register(new LivingUpdateEventHandler());
+        bus.register(new EntityJoinWorldHandler());
 
         // New Game
-        MinecraftForge.EVENT_BUS.register(game);
+        bus.register(game);
         // Alert
-        MinecraftForge.EVENT_BUS.register(new PowerUpAlert());
+        bus.register(new PowerUpAlert());
         // Chat
-        MinecraftForge.EVENT_BUS.register(new HideMessages());
+        bus.register(new HideMessages());
         // Entity
-        MinecraftForge.EVENT_BUS.register(new PowerUpCountdown());
+        bus.register(new PowerUpCountdown());
         // Update Checker
-        MinecraftForge.EVENT_BUS.register(new CheckForUpdates());
+        bus.register(new CheckForUpdates());
     }
 }
