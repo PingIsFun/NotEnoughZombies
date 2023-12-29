@@ -1,7 +1,5 @@
 package si.pingisfun.nez.command;
 
-import cc.polyfrost.oneconfig.libs.universal.ChatColor;
-import cc.polyfrost.oneconfig.libs.universal.UChat;
 import cc.polyfrost.oneconfig.utils.commands.annotations.Command;
 import cc.polyfrost.oneconfig.utils.commands.annotations.Main;
 import cc.polyfrost.oneconfig.utils.commands.annotations.SubCommand;
@@ -76,6 +74,7 @@ public class NEZCommand {
             ChatUtil.message("Mod Enabled: " + ZombiesUtils.isEnabled(), ChatOutput.SELF);
             NotEnoughZombies.DEBUG_LOGGER.info("Mod Enabled: " + ZombiesUtils.isEnabled());
         }
+
         @SubCommand
         private void game() {
             ChatUtil.message("Game data: " + NotEnoughZombies.game.toString(), ChatOutput.SELF);

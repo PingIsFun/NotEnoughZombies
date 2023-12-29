@@ -49,7 +49,7 @@ public class ZombiesGame {
             return;
         }
         int c = 0;
-        for (PowerUp powerUp: allSavedPowerUps) {
+        for (PowerUp powerUp : allSavedPowerUps) {
             int nextRoundWithPowerUp = getNextPowerUpRound(powerUp).orElse(-1);
             powerUpString
                     .append(powerUp.getShortName())
@@ -63,7 +63,6 @@ public class ZombiesGame {
 
             c++;
         }
-
 
 
         ChatUtil.message("Next power up rounds; " + powerUpString, ChatOutput.getOutputUpByNumber(ModConfig.nextPowerUpRoundAlert));

@@ -50,6 +50,7 @@ public class LivingUpdateEventHandler {
         if (IGNORE_ENTITY_SET.contains(name)) {
             return;
         }
+
         // Keep my sanity while debuging
         if (REVIVE_SECONDS_PATTERN.matcher(name).matches()) {
             return;

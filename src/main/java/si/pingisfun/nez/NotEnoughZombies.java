@@ -9,7 +9,6 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import si.pingisfun.nez.command.NEZCommand;
-import si.pingisfun.nez.command.TestCommand;
 import si.pingisfun.nez.config.ModConfig;
 import si.pingisfun.nez.handlers.alert.PowerUpAlert;
 import si.pingisfun.nez.handlers.base.ActionBarChatEventHandler;
@@ -33,7 +32,7 @@ public class NotEnoughZombies {
     public static final String NAME = "@NAME@";
     public static final String VERSION = "@VER@";
     public static final Logger LOGGER = LogManager.getLogger(MODID);
-    public static final Logger DEBUG_LOGGER = LogManager.getLogger(MODID+"-DEBUG");
+    public static final Logger DEBUG_LOGGER = LogManager.getLogger(MODID + "-DEBUG");
     public static final Minecraft minecraft = Minecraft.getMinecraft();
     // Sets the variables from `gradle.properties`. See the `blossom` config in `build.gradle.kts`.
     @Mod.Instance(MODID)
@@ -54,18 +53,14 @@ public class NotEnoughZombies {
         MinecraftForge.EVENT_BUS.register(new LivingUpdateEventHandler());
         MinecraftForge.EVENT_BUS.register(new EntityJoinWorldHandler());
 
-
         // New Game
         MinecraftForge.EVENT_BUS.register(game);
         // Alert
         MinecraftForge.EVENT_BUS.register(new PowerUpAlert());
         // Chat
         MinecraftForge.EVENT_BUS.register(new HideMessages());
-
-
         // Entity
         MinecraftForge.EVENT_BUS.register(new PowerUpCountdown());
-
         // Update Checker
         MinecraftForge.EVENT_BUS.register(new CheckForUpdates());
     }

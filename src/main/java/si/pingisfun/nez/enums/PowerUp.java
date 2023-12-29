@@ -26,6 +26,7 @@ public enum PowerUp {
     private final String name;
 
     private final String shortName;
+    private EnumMap<ZombiesMap, Optional<List<SortedSet<Integer>>>> patternMap = new EnumMap<>(ZombiesMap.class);
 
     PowerUp(String name, String shortName, List<SortedSet<Integer>> AApattern, List<SortedSet<Integer>> BBpattern, List<SortedSet<Integer>> DEpattern) {
         this.name = name;
@@ -35,15 +36,10 @@ public enum PowerUp {
         patternMap.put(ZombiesMap.BAD_BLOOD, Optional.ofNullable(BBpattern));
         patternMap.put(ZombiesMap.DEAD_END, Optional.ofNullable(DEpattern));
     }
-    private EnumMap<ZombiesMap, Optional<List<SortedSet<Integer>>>> patternMap = new EnumMap<>(ZombiesMap.class);
 
     PowerUp(String name, String shortName) {
         this.name = name;
         this.shortName = shortName;
-    }
-
-    public String getShortName() {
-        return shortName;
     }
 
     public static Optional<PowerUp> getPowerUpByName(String name) {
@@ -53,6 +49,10 @@ public enum PowerUp {
             }
         }
         return Optional.empty();
+    }
+
+    public String getShortName() {
+        return shortName;
     }
 
     public Optional<List<SortedSet<Integer>>> getPattern(ZombiesMap map) {
