@@ -47,12 +47,10 @@ public class NotEnoughZombies {
         config = new ModConfig();
         game = new ZombiesGame();
         CommandManager.INSTANCE.registerCommand(new NEZCommand());
-//        CommandManager.INSTANCE.registerCommand(new TestCommand());
 
         // Base Handlers
         MinecraftForge.EVENT_BUS.register(new TitleEventHandler());
         MinecraftForge.EVENT_BUS.register(new ActionBarChatEventHandler());
-//        MinecraftForge.EVENT_BUS.register(new PlaySoundEventHandler());
         MinecraftForge.EVENT_BUS.register(new LivingUpdateEventHandler());
         MinecraftForge.EVENT_BUS.register(new EntityJoinWorldHandler());
 
@@ -70,8 +68,5 @@ public class NotEnoughZombies {
 
         // Update Checker
         MinecraftForge.EVENT_BUS.register(new CheckForUpdates());
-
-        // Debug
-//        MinecraftForge.EVENT_BUS.register(new TestHandler());
     }
 }
