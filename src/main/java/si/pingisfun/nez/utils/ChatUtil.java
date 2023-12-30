@@ -34,7 +34,7 @@ public class ChatUtil {
     }
 
     public static void message(String data) {
-        UChat.chat(getPrefix() + data);
+        message(data, ChatOutput.SELF);
     }
 
     public static void message(String data, ChatOutput output) {
