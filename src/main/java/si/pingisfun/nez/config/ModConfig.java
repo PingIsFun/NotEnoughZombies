@@ -57,7 +57,7 @@ public class ModConfig extends Config {
             name = "Power up timer",
             category = "HUD"
     )
-    public PowerUpHud hud = new PowerUpHud();
+    public PowerUpHud powerUpHud = new PowerUpHud();
     @HUD(
             name = "Game Timer",
             category = "HUD"

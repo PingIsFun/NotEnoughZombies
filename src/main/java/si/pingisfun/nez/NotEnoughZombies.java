@@ -68,7 +68,7 @@ public class NotEnoughZombies {
         // Update Checker
         bus.register(new CheckForUpdates());
         // HUD
-        bus.register(config.hud);
+        bus.register(config.powerUpHud);
 
         // Dev command
         if (isDev()) {
