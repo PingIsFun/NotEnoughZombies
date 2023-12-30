@@ -23,12 +23,23 @@ public class ZombiesGame {
     private int currentRound;
     private Map<PowerUp, Integer> powerUpPatternMap = new HashMap<>(3);
     private boolean isInGame;
-
     private long gameStartTimestampMs;
     private long roundStartTimestampMs;
 
     public ZombiesGame() {
         this.isInGame = false;
+    }
+
+    public ZombiesMap getMap() {
+        return map;
+    }
+
+    public int getCurrentRound() {
+        return currentRound;
+    }
+
+    public boolean isInGame() {
+        return isInGame;
     }
 
     @SubscribeEvent
