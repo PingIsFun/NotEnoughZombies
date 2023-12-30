@@ -1,17 +1,17 @@
 package si.pingisfun.nez.config;
 
 import cc.polyfrost.oneconfig.config.Config;
-import cc.polyfrost.oneconfig.config.annotations.Dropdown;
-import cc.polyfrost.oneconfig.config.annotations.DualOption;
-import cc.polyfrost.oneconfig.config.annotations.HUD;
-import cc.polyfrost.oneconfig.config.annotations.Switch;
+import cc.polyfrost.oneconfig.config.annotations.*;
+import cc.polyfrost.oneconfig.config.core.OneKeyBind;
 import cc.polyfrost.oneconfig.config.data.Mod;
 import cc.polyfrost.oneconfig.config.data.ModType;
 import cc.polyfrost.oneconfig.config.data.OptionSize;
+import cc.polyfrost.oneconfig.libs.universal.UKeyboard;
 import si.pingisfun.nez.NotEnoughZombies;
 import si.pingisfun.nez.hud.PowerUpHud;
 import si.pingisfun.nez.hud.timestamp.GameTimeHUD;
 import si.pingisfun.nez.hud.timestamp.RoundTimeHUD;
+import si.pingisfun.nez.utils.ChatUtil;
 
 /**
  * The main Config entrypoint that extends the Config type and inits the config options.
@@ -68,6 +68,34 @@ public class ModConfig extends Config {
             category = "HUD"
     )
     public RoundTimeHUD roundTime = new RoundTimeHUD();
+
+    /*
+     * Visibility
+     */
+    @Switch(
+            name = "Hide nearby entities",
+            category = "Visibility"
+
+    )
+    public static boolean hideNearbyEntities = false;
+
+    @KeyBind(
+            name = "",
+            category = "Visibility"
+    )
+    public static OneKeyBind keyBindHideNearbyEntities = new OneKeyBind(UKeyboard.KEY_I);
+
+    @Switch(
+            name = "Hide nearby players",
+            category = "Visibility"
+
+    )
+    public static boolean hideNearbyPlayers = false;
+    @KeyBind(
+            name = "",
+            category = "Visibility"
+    )
+    public static OneKeyBind keyBindhideNearbyPlayers = new OneKeyBind(UKeyboard.KEY_NONE);
 
 
     /*
@@ -141,6 +169,7 @@ public class ModConfig extends Config {
 
     public ModConfig() {
         super(new Mod(NotEnoughZombies.NAME, ModType.HYPIXEL), NotEnoughZombies.MODID + ".json");
+        registerKeyBind(keyBindHideNearbyEntities, () -> ChatUtil.message("keybind pressed"));
         initialize();
     }
 }

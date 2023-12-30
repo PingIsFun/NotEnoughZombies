@@ -1,12 +1,15 @@
 package si.pingisfun.nez.handlers.entity;
 
+import net.minecraft.client.entity.EntityOtherPlayerMP;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityArmorStand;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import si.pingisfun.nez.config.ModConfig;
 import si.pingisfun.nez.events.entity.PowerUpSpawnEvent;
 import si.pingisfun.nez.utils.JavaUtils;
+import si.pingisfun.nez.utils.MinecraftUtils;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -45,11 +48,25 @@ public class PowerUpCountdown {
             return;
         }
         EntityLivingBase entity = renderLivingEvent.entity;
-        if (!(entity instanceof EntityArmorStand)) {
-            return;
+        if (entity instanceof EntityArmorStand) {
+            handleArmorStand((EntityArmorStand) entity);
+        } else if (entity instanceof EntityOtherPlayerMP) {
+            handleOtherPlayerMP(renderLivingEvent);
+        } else if (entity instanceof EntityLivingBase && !(entity instanceof EntityPlayer)) {
+            handleLivingNonPlayerEntity(renderLivingEvent);
         }
 
-        UUID uuid = entity.getUniqueID();
+    }
+    private void handleOtherPlayerMP(RenderLivingEvent.Pre renderLivingEvent) {
+        renderLivingEvent.setCanceled(ModConfig.hideNearbyPlayers && MinecraftUtils.isNearby(renderLivingEvent.entity, 2.5));
+    }
+
+    private void handleLivingNonPlayerEntity(RenderLivingEvent.Pre renderLivingEvent) {
+        renderLivingEvent.setCanceled(ModConfig.hideNearbyEntities && MinecraftUtils.isNearby(renderLivingEvent.entity, 2.5));
+    }
+
+    private void handleArmorStand(EntityArmorStand entityArmorStand) {
+        UUID uuid = entityArmorStand.getUniqueID();
         Long entityDespawnTimestamp = entityDespawnTimestampCache.get(uuid);
         if (Objects.isNull(entityDespawnTimestamp)) {
             return;
@@ -63,13 +80,14 @@ public class PowerUpCountdown {
         long diff = entityDespawnTimestamp - currentTime;
 
         if (diff <= 0) {
-            entity.setAlwaysRenderNameTag(false);
+            entityArmorStand.setAlwaysRenderNameTag(false);
             return;
         }
 
-        String newName = nameGenerator(entity, diff);
+        String newName = nameGenerator(entityArmorStand, diff);
 
-        entity.setCustomNameTag(newName);
+        entityArmorStand.setCustomNameTag(newName);
+
     }
 
     @SubscribeEvent
