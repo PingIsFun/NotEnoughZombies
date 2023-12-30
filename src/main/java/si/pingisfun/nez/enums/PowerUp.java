@@ -130,7 +130,7 @@ public enum PowerUp {
             return Optional.empty();
         }
         int tensDown = currentRound - currentRound % 10;
-        int res = -1;
+        int res;
         for (int i = 0; i < 10; i++) {
             for (int digit : digits) {
                 res = tensDown + digit;
