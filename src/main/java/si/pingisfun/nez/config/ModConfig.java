@@ -13,6 +13,9 @@ import si.pingisfun.nez.hud.timestamp.GameTimeHUD;
 import si.pingisfun.nez.hud.timestamp.RoundTimeHUD;
 import si.pingisfun.nez.utils.ChatUtil;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * The main Config entrypoint that extends the Config type and inits the config options.
  * See <a href="https://docs.polyfrost.cc/oneconfig/config/adding-options">this link</a> for more config Options
@@ -169,7 +172,8 @@ public class ModConfig extends Config {
 
     public ModConfig() {
         super(new Mod(NotEnoughZombies.NAME, ModType.HYPIXEL), NotEnoughZombies.MODID + ".json");
-        registerKeyBind(keyBindHideNearbyEntities, () -> ChatUtil.message("keybind pressed"));
+        SimpleDateFormat sdfDate = new SimpleDateFormat("HH:mm:ss");
+        registerKeyBind(keyBindHideNearbyEntities, () -> ChatUtil.message("keybind pressed"+sdfDate.format(new Date())));
         initialize();
     }
 }
