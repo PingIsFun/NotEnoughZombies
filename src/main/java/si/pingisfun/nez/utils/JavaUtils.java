@@ -1,9 +1,6 @@
 package si.pingisfun.nez.utils;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
@@ -77,4 +74,27 @@ public class JavaUtils {
 
         return String.valueOf(formattedSeconds);
     }
+
+    /**
+     * The milisToMsSMinH function takes a long representing milliseconds and returns a list of four longs,
+     * the first being the milliseconds, then seconds, minutes and hours.
+     * <p>
+     *
+     * @param ms Time in milliseconds
+     *
+     * @return A list of 4 longs {ms, s, min, h}
+     *
+     */
+    public static List<Long> millisToMsSMinH(long ms) {
+        ArrayList<Long> res = new ArrayList<>();
+        res.add(ms % 1000);
+        long s = ms / 1000;
+        res.add(s % 60);
+        long min = s / 60;
+        res.add(min % 60);
+        long h = min / 60;
+        res.add(h);
+        return res;
+    }
 }
+
