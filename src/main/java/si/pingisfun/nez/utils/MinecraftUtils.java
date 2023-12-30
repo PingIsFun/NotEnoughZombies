@@ -3,10 +3,15 @@ package si.pingisfun.nez.utils;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.scoreboard.Score;
 import net.minecraft.scoreboard.ScoreObjective;
 import net.minecraft.scoreboard.ScorePlayerTeam;
 import net.minecraft.scoreboard.Scoreboard;
+import net.minecraft.util.BlockPos;
+import si.pingisfun.nez.NotEnoughZombies;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -69,5 +74,13 @@ public class MinecraftUtils {
         }
         return name.split(NAME_SEPARATOR)[0];
     }
+
+    public static boolean isNearby(Entity entity, double maxDistance) {
+        BlockPos playerPos = Minecraft.getMinecraft().thePlayer.getPosition();
+        BlockPos entityPos = entity.getPosition();
+        double distance = Math.sqrt(playerPos.distanceSq(entityPos));
+        return distance <= maxDistance;
+    }
+
 }
 
