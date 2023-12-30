@@ -61,30 +61,34 @@ public class ZombiesGame {
         if (Objects.isNull(map)) {
             this.map = ZombiesUtils.getMap();
         }
-        StringBuilder powerUpString = new StringBuilder();
+
         Set<PowerUp> allSavedPowerUps = getAllSavedPowerUps();
-        if (allSavedPowerUps.size() == 0) {
+        if (allSavedPowerUps.isEmpty()) {
             ChatUtil.message("No power up data");
             return;
         }
-        int c = 0;
+
+        StringBuilder powerUpBuilder = new StringBuilder();
+
         for (PowerUp powerUp : allSavedPowerUps) {
-            int nextRoundWithPowerUp = getNextPowerUpRound(powerUp).orElse(-1);
-            powerUpString
-                    .append(powerUp.getShortName())
-                    .append(": ")
-                    .append(nextRoundWithPowerUp);
-            if (c >= allSavedPowerUps.size() - 1) {
+            Optional<Integer> nextRoundWithPowerUpOptional = getNextPowerUpRound(powerUp);
+
+            if (!nextRoundWithPowerUpOptional.isPresent()) {
                 break;
             }
 
-            powerUpString.append(", ");
+            int nextRoundWithPowerUp = nextRoundWithPowerUpOptional.get();
 
-            c++;
+            powerUpBuilder
+                    .append(powerUp.getShortName())
+                    .append(": ")
+                    .append(nextRoundWithPowerUp)
+                    .append(", ");
         }
 
+        powerUpBuilder.delete(powerUpBuilder.length() - 2, powerUpBuilder.length());
 
-        ChatUtil.message("Next power up rounds; " + powerUpString, ChatOutput.getOutputUpByNumber(ModConfig.nextPowerUpRoundAlert));
+        ChatUtil.message("Next power up rounds; " + powerUpBuilder, ChatOutput.getOutputUpByNumber(ModConfig.nextPowerUpRoundAlert));
     }
 
     @SubscribeEvent
