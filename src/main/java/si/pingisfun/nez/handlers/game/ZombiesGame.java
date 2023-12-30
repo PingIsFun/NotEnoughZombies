@@ -45,6 +45,9 @@ public class ZombiesGame {
     @SubscribeEvent
     public void onGameStart(GameStartEvent gameStartEvent) {
         clean();
+        long startTimestampMs = System.currentTimeMillis();
+        this.gameStartTimestampMs = startTimestampMs;
+        this.roundStartTimestampMs = startTimestampMs;
         map = ZombiesUtils.getMap();
         currentRound = 1;
         isInGame = true;
@@ -53,9 +56,6 @@ public class ZombiesGame {
     @SubscribeEvent
     public void onNewRound(NewRoundEvent newRoundEvent) {
         this.currentRound = newRoundEvent.getRound();
-        if (currentRound == 1) {
-            this.gameStartTimestampMs = System.currentTimeMillis();
-        }
         this.roundStartTimestampMs = System.currentTimeMillis();
 
         if (Objects.isNull(map)) {
