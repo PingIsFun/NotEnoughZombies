@@ -10,6 +10,8 @@ import cc.polyfrost.oneconfig.config.data.ModType;
 import cc.polyfrost.oneconfig.config.data.OptionSize;
 import si.pingisfun.nez.NotEnoughZombies;
 import si.pingisfun.nez.hud.PowerUpHud;
+import si.pingisfun.nez.hud.timestamp.GameTimeHUD;
+import si.pingisfun.nez.hud.timestamp.RoundTimeHUD;
 
 /**
  * The main Config entrypoint that extends the Config type and inits the config options.
@@ -56,6 +58,16 @@ public class ModConfig extends Config {
             category = "HUD"
     )
     public PowerUpHud hud = new PowerUpHud();
+    @HUD(
+            name = "Game Timer",
+            category = "HUD"
+    )
+    public GameTimeHUD gameTimer = new GameTimeHUD();
+    @HUD(
+            name = "Round Timer",
+            category = "HUD"
+    )
+    public RoundTimeHUD roundTime = new RoundTimeHUD();
 
 
     /*
